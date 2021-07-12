@@ -67,7 +67,12 @@ func NewGoTemplatePrinter(templateStr string) (*LinePrinter, error) {
 }
 
 type LinePrinter struct {
-	Printer HumanReadablePrinter
+	Noheaders bool
+	Printer   HumanReadablePrinter
+}
+
+func (p *LinePrinter) SetNoHeaders(s bool) {
+	p.Noheaders = s
 }
 
 func NewLinePrinter(cmdName string) (*LinePrinter, error) {
@@ -82,7 +87,9 @@ func NewLinePrinter(cmdName string) (*LinePrinter, error) {
 func (p *LinePrinter) Print(w io.Writer, obj api.Spec) error {
 	table := uitable.New()
 
-	table.AddRow(p.Printer.GetHeaders()...)
+	if !p.Noheaders {
+		table.AddRow(p.Printer.GetHeaders()...)
+	}
 	if l, ok := obj.(api.ListSpec); ok {
 		for i := 0; i < l.Len(); i++ {
 			table.AddRow(p.Printer.GetRow(l.Index(i))...)

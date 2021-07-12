@@ -31,8 +31,8 @@ var ListOption = &listOption{}
 type listOption struct {
 	Output          string
 	Filename        string
-	Template        string
 	RowSearchParams string
+	NoHeaders       bool
 }
 
 func newListCmd() *cobra.Command {
@@ -43,8 +43,9 @@ func newListCmd() *cobra.Command {
 		return []string{"yaml", "json", "line", "template", "go-template="}, cobra.ShellCompDirectiveFilterFileExt
 	})
 	cmd.PersistentFlags().StringVarP(&ListOption.Filename, "filename", "f", "", "output file name")
+	cmd.PersistentFlags().StringVarP(&ListOption.Filename, "no-headers", "", "", "no output headers")
 
-	cmd.PersistentFlags().StringVarP(&ListOption.RowSearchParams, "row-search-params", "", "", "")
+	cmd.PersistentFlags().BoolVarP(&ListOption.NoHeaders, "row-search-params", "", false, "no output header")
 	return cmd
 }
 
@@ -52,6 +53,9 @@ func runList(cmd *cobra.Command, args []string, spec apis.Spec) error {
 	p, err := printer.GetPrinter(args[0], ListOption.Output)
 	if err != nil {
 		return fmt.Errorf("failed to get output printer: %w", err)
+	}
+	if linePinrer, ok := p.(*printer.LinePrinter); ok {
+		linePinrer.SetNoHeaders(ListOption.NoHeaders)
 	}
 
 	cl, err := utils.Client(log)

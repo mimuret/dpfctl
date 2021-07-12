@@ -11,7 +11,7 @@ require (
 	github.com/imdario/mergo v0.3.12 // indirect
 	github.com/kr/text v0.2.0 // indirect
 	github.com/mattn/go-runewidth v0.0.13 // indirect
-	github.com/mimuret/golang-iij-dpf v0.2.1-0.20210705100628-06e4a4d4df85
+	github.com/mimuret/golang-iij-dpf v0.2.1-0.20210712091102-cf54e4921c4e
 	github.com/mitchellh/copystructure v1.2.0 // indirect
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e // indirect

@@ -240,8 +240,8 @@ github.com/mattn/go-runewidth v0.0.13 h1:lTGmDsbAYt5DmK6OnoV7EuIF1wEIFAcxld6ypU4
 github.com/mattn/go-runewidth v0.0.13/go.mod h1:Jdepj2loyihRzMpdS35Xk/zdY8IAYHsh153qUoGf23w=
 github.com/matttproud/golang_protobuf_extensions v1.0.1/go.mod h1:D8He9yQNgCq6Z5Ld7szi9bcBfOoFv/3dc6xSMkL2PC0=
 github.com/miekg/dns v1.0.14/go.mod h1:W1PPwlIAgtquWBMBEV9nkV9Cazfe8ScdGz/Lj7v3Nrg=
-github.com/mimuret/golang-iij-dpf v0.2.1-0.20210705100628-06e4a4d4df85 h1:YpKSCkyJ03pGzNRAiBeg98ONSeg9raRuX11Suqz0nGA=
-github.com/mimuret/golang-iij-dpf v0.2.1-0.20210705100628-06e4a4d4df85/go.mod h1:Cw2dHcj+j5B4lHx77NPWkTnqaTG8Qsargs3Kf1HaLwM=
+github.com/mimuret/golang-iij-dpf v0.2.1-0.20210712091102-cf54e4921c4e h1:7QKU/KThZcFYQZ4LxM5/sBb60FEtXUxL+fruv5mqsYM=
+github.com/mimuret/golang-iij-dpf v0.2.1-0.20210712091102-cf54e4921c4e/go.mod h1:Cw2dHcj+j5B4lHx77NPWkTnqaTG8Qsargs3Kf1HaLwM=
 github.com/mitchellh/cli v1.0.0/go.mod h1:hNIlj7HEI86fIcpObd7a0FcrxTWetlwJDGcceTlRvqc=
 github.com/mitchellh/copystructure v1.2.0 h1:vpKXTN4ewci03Vljg/q9QvCGUDttBOGBIa15WveJJGw=
 github.com/mitchellh/copystructure v1.2.0/go.mod h1:qLl+cE2AmVv+CoeAwDPye/v+N2HKCj9FbZEVFJRxO9s=
