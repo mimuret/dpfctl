@@ -3,7 +3,7 @@ package printer
 func init() {
 	SetBaseHumanReadablePrinter("current_records",
 		[]string{"Id", "Name", "TTL", "RRtype", "RData"},
-		[]string{"{{ .Id }}", "{{ .Name }}", "{{ .RRType }}", `{{ .RData | join "," }}`})
+		[]string{"{{ .Id }}", "{{ .Name }}", "{{ .TTL }}", "{{ .RRType }}", `{{ .RData }}`})
 	SetBaseHumanReadablePrinter("dnssec",
 		[]string{"Enabled", "State", "DsState"},
 		[]string{"{{ .Enabled }}", "{{ .State }}", "{{ .DsState }}"})
@@ -15,7 +15,7 @@ func init() {
 		[]string{"{{ . }}"})
 	SetBaseHumanReadablePrinter("records",
 		[]string{"Id", "Name", "TTL", "RRtype", "RData", "State", "Operator"},
-		[]string{"{{ .Id }}", "{{ .Name }}", "{{ .RRType }}", `{{ .RData | join "," }}`, "{{ .State }}", "{{ .Operator }}"})
+		[]string{"{{ .Id }}", "{{ .Name }}", "{{ .TTL }}", "{{ .RRType }}", `{{ .RData  }}`, "{{ .State }}", "{{ .Operator }}"})
 	SetBaseHumanReadablePrinter("zone_default_ttl",
 		[]string{"Value", "State", "Operator"},
 		[]string{"{{ .Value }}", "{{ .State }}", "{{ .Operator }}"})
