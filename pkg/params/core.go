@@ -6,6 +6,7 @@ import (
 	"github.com/mimuret/golang-iij-dpf/pkg/api"
 	"github.com/mimuret/golang-iij-dpf/pkg/apis"
 	"github.com/mimuret/golang-iij-dpf/pkg/apis/core"
+	"github.com/mimuret/golang-iij-dpf/pkg/apis/zones"
 )
 
 func init() {
@@ -71,8 +72,8 @@ func init() {
 			api.ActionList:   {Object: &core.ZoneList{}},
 			api.ActionRead:   {Object: &core.Zone{}, Params: Params{zoneId}},
 			api.ActionUpdate: {Object: &core.Zone{}, Params: Params{zoneId}},
-			api.ActionCancel: {Object: &core.Zone{}, Params: Params{zoneId}},
-			api.ActionApply:  {Object: &core.ZoneApply{}, Params: Params{zoneId}},
+			api.ActionCancel: {Object: &zones.ZoneApply{}, Params: Params{zoneId}},
+			api.ActionApply:  {Object: &zones.ZoneApply{}, Params: Params{zoneId}},
 		},
 	})
 	SetGroup("core", list)

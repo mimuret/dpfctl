@@ -19,24 +19,71 @@ func ValidArgsFunction(action api.Action, cmd *cobra.Command, args []string, toC
 	return nil, cobra.ShellCompDirectiveNoSpace
 }
 
-func SetUsage(cmd *cobra.Command, action api.Action) {
-	t := uitable.New()
-	uses := strings.Split(cmd.Use, " ")
-	for _, groupName := range params.GetGroupList() {
-		exist := false
-		list := params.GetAPISlice(groupName)
-		for _, apiSet := range list {
-			if apiSet != nil {
-				if apiSepc, ok := apiSet.Action[action]; ok {
-					if !exist {
-						t.AddRow(fmt.Sprintf("\n%s API:", groupName))
-						exist = true
-					}
-					t.AddRow(fmt.Sprintf("  %s %s %s", uses[0], apiSet.Name, apiSepc.Params.String()), apiSet.Description)
-				}
-			}
-		}
+func CmdUsage(subcmd string, action api.Action) *uitable.Table {
+	if subcmd == "get" {
+		return getCmdUsage(subcmd, action)
 	}
+	return cmdUsage(subcmd, action)
+}
+
+func getCmdUsage(subcmd string, action api.Action) *uitable.Table {
+	t := uitable.New()
+	params.IterateGroup(func(groupName string, slice params.APISetSlice) {
+		exist := false
+		slice.IterateAPISet(func(apiSet *params.APISet) {
+			var (
+				readAPI *params.API
+				listAPI *params.API
+			)
+			if apiSepc, ok := apiSet.Action[api.ActionRead]; ok {
+				readAPI = &apiSepc
+			}
+			if apiSepc, ok := apiSet.Action[api.ActionList]; ok {
+				listAPI = &apiSepc
+			}
+			if (readAPI != nil || listAPI != nil) && !exist {
+				t.AddRow(fmt.Sprintf("\n%s API:", groupName))
+				exist = true
+			}
+			if readAPI != nil && listAPI == nil {
+				t.AddRow(fmt.Sprintf("  %s %s %s", subcmd, apiSet.Name, readAPI.Params.String()), apiSet.Description)
+			} else if readAPI == nil && listAPI != nil {
+				t.AddRow(fmt.Sprintf("  %s %s %s", subcmd, apiSet.Name, listAPI.Params.String()), apiSet.Description)
+			} else if readAPI != nil && listAPI != nil {
+				getParams := listAPI.Params
+				for i := len(listAPI.Params); i < len(readAPI.Params); i++ {
+					param := readAPI.Params[i]
+					param.Required = false
+					getParams = append(getParams, param)
+				}
+				t.AddRow(fmt.Sprintf("  %s %s %s", subcmd, apiSet.Name, getParams.String()), apiSet.Description)
+			}
+
+		})
+	})
+	return t
+}
+
+func cmdUsage(subcmd string, action api.Action) *uitable.Table {
+	t := uitable.New()
+	params.IterateGroup(func(groupName string, slice params.APISetSlice) {
+		exist := false
+		slice.IterateAPISet(func(apiSet *params.APISet) {
+			if apiSepc, ok := apiSet.Action[action]; ok {
+				if !exist {
+					t.AddRow(fmt.Sprintf("\n%s API:", groupName))
+					exist = true
+				}
+				t.AddRow(fmt.Sprintf("  %s %s %s", subcmd, apiSet.Name, apiSepc.Params.String()), apiSet.Description)
+			}
+		})
+	})
+	return t
+}
+
+func SetUsage(cmd *cobra.Command, action api.Action) {
+	uses := strings.Split(cmd.Use, " ")
+	t := CmdUsage(uses[0], action)
 	cmd.SetUsageTemplate(`Usage:{{if .Runnable}}
   {{.UseLine}}{{end}}{{if .HasAvailableSubCommands}}
   {{.CommandPath}} [command]{{end}}{{if gt (len .Aliases) 0}}

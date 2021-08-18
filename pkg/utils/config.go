@@ -6,24 +6,33 @@ import (
 	"github.com/spf13/viper"
 )
 
-type Config struct {
+var (
+	DefaultContext = Context{
+		Endpoint:       "https://api.dns-platform.jp/dpf/v1",
+		ClientLogLevel: 0,
+	}
+)
+
+type Context struct {
 	Endpoint       string
 	Token          string
 	ClientLogLevel int
 }
 
-func NewConfig() *Config {
-	return &Config{
-		Endpoint:       "https://api.dns-platform.jp/dpf/v1",
-		ClientLogLevel: 0,
+func GetContexts() (*Context, error) {
+	currentContext := viper.GetString("current-context")
+	if viper.GetString("context") != "" {
+		currentContext = viper.GetString("context")
 	}
+	contexts := viper.Get("contexts").(map[string]Context)
+	c, ok := contexts[currentContext]
+	if !ok {
+		return nil, fmt.Errorf("failed to get config, current-context: `%s`", currentContext)
+	}
+	return &c, nil
 }
 
-func GetConfig() (*Config, error) {
-	c := NewConfig()
-	if err := viper.Unmarshal(c); err != nil {
-		fmt.Println("config file Unmarshal error")
-		return nil, fmt.Errorf("failed to unmarshal config file: %w", err)
-	}
-	return c, nil
+func init() {
+	viper.SetDefault("contexts", map[string]Context{"default": DefaultContext})
+	viper.SetDefault("current-context", "default")
 }

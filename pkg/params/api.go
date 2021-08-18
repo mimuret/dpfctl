@@ -3,6 +3,7 @@ package params
 import (
 	"errors"
 	"fmt"
+	"sort"
 	"strconv"
 	"strings"
 
@@ -26,10 +27,19 @@ func NewGroupMap() *GroupMap {
 	}
 }
 
-func (g *GroupMap) IterateAPISet(f func(apiSet *APISet), action api.Action) {
-	for _, list := range g.groupMap {
-		if list != nil {
-			list.IterateAPISet(f, action)
+func IterateGroup(f func(groupName string, slice APISetSlice)) {
+	groupMap.IterateGroup(f)
+}
+
+func (g *GroupMap) IterateGroup(f func(groupName string, slice APISetSlice)) {
+	names := make(sort.StringSlice, len(g.groupMap))
+	for name := range g.groupMap {
+		names = append(names, name)
+	}
+	names.Sort()
+	for _, name := range names {
+		if g.groupMap[name] != nil {
+			f(name, g.groupMap[name])
 		}
 	}
 }
@@ -38,14 +48,17 @@ func UpdateCmdMap() { groupMap.UpdateCmdMap() }
 
 func (g *GroupMap) UpdateCmdMap() {
 	newMap := make(map[string]*APISet)
-	g.IterateAPISet(func(apiSet *APISet) {
-		if _, ok := newMap[apiSet.Name]; ok {
-			panic(fmt.Sprintf("cmd %s is duplicated", apiSet.Name))
-		}
-		newMap[apiSet.Name] = apiSet
-	}, "")
+	g.IterateGroup(func(name string, list APISetSlice) {
+		list.IterateAPISet(func(apiSet *APISet) {
+			if _, ok := newMap[apiSet.Name]; ok {
+				panic(fmt.Sprintf("cmd %s is duplicated", apiSet.Name))
+			}
+			newMap[apiSet.Name] = apiSet
+		})
+	})
 	g.cmdMap = newMap
 }
+
 func ValidateParams() { groupMap.ValidateParams() }
 func (g *GroupMap) ValidateParams() {
 	for _, apiSet := range g.cmdMap {
@@ -75,18 +88,6 @@ func (g *GroupMap) SetGroup(name string, list APISetSlice) {
 	g.UpdateCmdMap()
 }
 
-func GetGroupList() []string {
-	return groupMap.GetGroupList()
-}
-
-func (g *GroupMap) GetGroupList() []string {
-	groups := []string{}
-	for groupName := range g.groupMap {
-		groups = append(groups, groupName)
-	}
-	return groups
-}
-
 func GetAPISlice(name string) APISetSlice {
 	return groupMap.GetAPISlice(name)
 }
@@ -100,7 +101,7 @@ func GetValidArgs(action api.Action) []string {
 }
 
 func (g *GroupMap) GetValidArgs(action api.Action) []string {
-	res := []string{}
+	res := sort.StringSlice{}
 	for _, apiSet := range g.cmdMap {
 		if apiSet != nil {
 			if _, ok := apiSet.Action[action]; ok {
@@ -108,18 +109,19 @@ func (g *GroupMap) GetValidArgs(action api.Action) []string {
 			}
 		}
 	}
+	res.Sort()
 	return res
 }
 
 type APISetSlice []*APISet
 
-func (a *APISetSlice) IterateAPISet(f func(apiSet *APISet), action api.Action) {
-	for _, apiSet := range *a {
+func (a APISetSlice) IterateAPISet(f func(apiSet *APISet)) {
+	sort.Slice(a, func(i, j int) bool {
+		return strings.Compare(a[i].Name, a[j].Name) < 0
+	})
+	for _, apiSet := range a {
 		if apiSet != nil {
-			_, ok := apiSet.Action[action]
-			if action == "" || ok {
-				f(apiSet)
-			}
+			f(apiSet)
 		}
 	}
 }
@@ -151,6 +153,9 @@ func (p Params) Validate() error {
 	for i, param := range p {
 		if err := param.Validate(); err != nil {
 			return fmt.Errorf("param[%d]: %w", i, err)
+		}
+		if param.Type == ParamTypeArrayInt64 && i != len(p)-1 {
+			return fmt.Errorf("param[%d]: ParamTypeArrayInt64 must be last item", i)
 		}
 		if param.Type == ParamTypeArrayString && i != len(p)-1 {
 			return fmt.Errorf("param[%d]: ParamTypeArrayString must be last item", i)
@@ -192,7 +197,7 @@ func (p Params) SetArgs(spec apis.Spec, args []string) error {
 	if err != nil {
 		return err
 	}
-	return spec.SetParams(sets...)
+	return spec.SetPathParams(sets...)
 }
 
 type ParamType int
@@ -241,13 +246,11 @@ func (p Param) Parse(s string) (interface{}, error) {
 
 func (p Param) String() string {
 	res := p.Name
-	if p.Type == ParamTypeArrayString {
+	if p.Type == ParamTypeArrayString || p.Type == ParamTypeArrayInt64 {
 		res += " ..."
 	}
 	if !p.Required {
-		if p.Type == ParamTypeArrayString {
-			res = "[" + res + "]"
-		}
+		res = "[ " + res + " ]"
 	}
 	return res
 }

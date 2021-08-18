@@ -17,7 +17,6 @@ package cmd
 
 import (
 	"fmt"
-	"os"
 
 	"github.com/mimuret/dpfctl/pkg/utils"
 	"github.com/mimuret/golang-iij-dpf/pkg/api"
@@ -56,10 +55,10 @@ func runRun(cmd *cobra.Command, args []string, spec apis.Spec) error {
 		if err != nil {
 			return fmt.Errorf("failed to request JobId: %s err: %w", reqId, err)
 		}
-		fmt.Fprintf(os.Stderr, "success request\n")
-		fmt.Fprintf(os.Stderr, "JobId: %s\n", reqId)
+		log.Infof("success request\n")
+		log.Infof("JobId: %s\n", reqId)
 	} else {
-		fmt.Fprintf(os.Stderr, "success request JobId: %s\n", reqId)
+		log.Infof("success request JobId: %s\n", reqId)
 	}
 	return nil
 }

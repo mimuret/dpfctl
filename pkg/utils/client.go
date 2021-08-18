@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"context"
 	"time"
 
 	"github.com/mimuret/golang-iij-dpf/pkg/api"
@@ -9,7 +10,7 @@ import (
 )
 
 func Client(logger api.Logger) (*api.Client, error) {
-	c, err := GetConfig()
+	c, err := GetContexts()
 	if err != nil {
 		return nil, err
 	}
@@ -17,6 +18,7 @@ func Client(logger api.Logger) (*api.Client, error) {
 }
 
 func Wait(c *api.Client, jobId string, timeout time.Duration) (*core.Job, error) {
-	c.SetWatchTimeout(timeout)
-	return apiutils.WaitJob(c, jobId)
+	ctx, cancel := context.WithTimeout(context.Background(), timeout)
+	defer cancel()
+	return apiutils.WaitJob(ctx, c, jobId, time.Second)
 }
