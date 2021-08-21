@@ -111,7 +111,7 @@ func prepareGet(cmd *cobra.Command, args []string) error {
 }
 
 func runList(cmd *cobra.Command, args []string, spec apis.Spec) error {
-	cl, err := utils.Client(log)
+	cl, err := utils.NewClient(log)
 	if err != nil {
 		return err
 	}
@@ -138,7 +138,7 @@ func runList(cmd *cobra.Command, args []string, spec apis.Spec) error {
 }
 
 func runRead(cmd *cobra.Command, args []string, spec apis.Spec) error {
-	cl, err := utils.Client(log)
+	cl, err := utils.NewClient(log)
 	if err != nil {
 		return err
 	}

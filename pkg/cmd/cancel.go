@@ -42,7 +42,7 @@ func runCancel(cmd *cobra.Command, args []string, spec apis.Spec) error {
 		fmt.Printf("[DryRun] cancel %v", spec)
 		return nil
 	}
-	cl, err := utils.Client(log)
+	cl, err := utils.NewClient(log)
 	if err != nil {
 		return err
 	}

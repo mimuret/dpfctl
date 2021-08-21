@@ -45,7 +45,7 @@ func newUpdateCmd() *cobra.Command {
 
 func runUpdate(cmd *cobra.Command, args []string, spec apis.Spec) error {
 	cobra.CheckErr(utils.ReadSpec(spec, UpdateOption.Filename))
-	cl, err := utils.Client(log)
+	cl, err := utils.NewClient(log)
 	if err != nil {
 		return err
 	}

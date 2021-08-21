@@ -9,6 +9,7 @@ require (
 	github.com/gosuri/uitable v0.0.4
 	github.com/huandu/xstrings v1.3.2 // indirect
 	github.com/imdario/mergo v0.3.12 // indirect
+	github.com/jarcoal/httpmock v1.0.8
 	github.com/kr/text v0.2.0 // indirect
 	github.com/mattn/go-runewidth v0.0.13 // indirect
 	github.com/mimuret/golang-iij-dpf v0.5.0

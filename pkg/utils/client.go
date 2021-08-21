@@ -9,7 +9,11 @@ import (
 	"github.com/mimuret/golang-iij-dpf/pkg/apiutils"
 )
 
-func Client(logger api.Logger) (*api.Client, error) {
+var (
+	NewClient = NewClientDefalt
+)
+
+func NewClientDefalt(logger api.Logger) (api.ClientInterface, error) {
 	c, err := GetContexts()
 	if err != nil {
 		return nil, err

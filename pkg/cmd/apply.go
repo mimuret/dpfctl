@@ -53,7 +53,7 @@ func runApply(cmd *cobra.Command, _ []string) error {
 	if err != nil {
 		return err
 	}
-	cl, err := utils.Client(log)
+	cl, err := utils.NewClient(log)
 	if err != nil {
 		return err
 	}
