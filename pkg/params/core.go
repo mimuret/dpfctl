@@ -5,8 +5,8 @@ import (
 
 	"github.com/mimuret/golang-iij-dpf/pkg/api"
 	"github.com/mimuret/golang-iij-dpf/pkg/apis"
-	"github.com/mimuret/golang-iij-dpf/pkg/apis/core"
-	"github.com/mimuret/golang-iij-dpf/pkg/apis/zones"
+	"github.com/mimuret/golang-iij-dpf/pkg/apis/dpf/v1/core"
+	"github.com/mimuret/golang-iij-dpf/pkg/apis/dpf/v1/zones"
 )
 
 func init() {

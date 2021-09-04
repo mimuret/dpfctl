@@ -2,7 +2,7 @@ package params
 
 import (
 	"github.com/mimuret/golang-iij-dpf/pkg/api"
-	"github.com/mimuret/golang-iij-dpf/pkg/apis/common_configs"
+	"github.com/mimuret/golang-iij-dpf/pkg/apis/dpf/v1/common_configs"
 )
 
 func init() {

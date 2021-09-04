@@ -12,7 +12,7 @@ import (
 )
 
 var (
-	groupMap = NewGroupMap()
+	GroupMapDefault = NewGroupMap()
 )
 
 type GroupMap struct {
@@ -28,7 +28,7 @@ func NewGroupMap() *GroupMap {
 }
 
 func IterateGroup(f func(groupName string, slice APISetSlice)) {
-	groupMap.IterateGroup(f)
+	GroupMapDefault.IterateGroup(f)
 }
 
 func (g *GroupMap) IterateGroup(f func(groupName string, slice APISetSlice)) {
@@ -44,7 +44,7 @@ func (g *GroupMap) IterateGroup(f func(groupName string, slice APISetSlice)) {
 	}
 }
 
-func UpdateCmdMap() { groupMap.UpdateCmdMap() }
+func UpdateCmdMap() { GroupMapDefault.UpdateCmdMap() }
 
 func (g *GroupMap) UpdateCmdMap() {
 	newMap := make(map[string]*APISet)
@@ -59,7 +59,7 @@ func (g *GroupMap) UpdateCmdMap() {
 	g.cmdMap = newMap
 }
 
-func ValidateParams() { groupMap.ValidateParams() }
+func ValidateParams() { GroupMapDefault.ValidateParams() }
 func (g *GroupMap) ValidateParams() {
 	for _, apiSet := range g.cmdMap {
 		if apiSet == nil {
@@ -75,12 +75,12 @@ func (g *GroupMap) ValidateParams() {
 	}
 }
 
-func GetAPISetfromCmdName(name string) *APISet { return groupMap.GetAPISetfromCmdName(name) }
+func GetAPISetfromCmdName(name string) *APISet { return GroupMapDefault.GetAPISetfromCmdName(name) }
 
 func (g *GroupMap) GetAPISetfromCmdName(name string) *APISet { return g.cmdMap[name] }
 
 func SetGroup(name string, list APISetSlice) {
-	groupMap.SetGroup(name, list)
+	GroupMapDefault.SetGroup(name, list)
 }
 
 func (g *GroupMap) SetGroup(name string, list APISetSlice) {
@@ -89,7 +89,7 @@ func (g *GroupMap) SetGroup(name string, list APISetSlice) {
 }
 
 func GetAPISlice(name string) APISetSlice {
-	return groupMap.GetAPISlice(name)
+	return GroupMapDefault.GetAPISlice(name)
 }
 
 func (g *GroupMap) GetAPISlice(name string) APISetSlice {
@@ -97,7 +97,7 @@ func (g *GroupMap) GetAPISlice(name string) APISetSlice {
 }
 
 func GetValidArgs(action api.Action) []string {
-	return groupMap.GetValidArgs(action)
+	return GroupMapDefault.GetValidArgs(action)
 }
 
 func (g *GroupMap) GetValidArgs(action api.Action) []string {

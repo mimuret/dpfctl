@@ -2,7 +2,7 @@ package params
 
 import (
 	"github.com/mimuret/golang-iij-dpf/pkg/api"
-	"github.com/mimuret/golang-iij-dpf/pkg/apis/zones"
+	"github.com/mimuret/golang-iij-dpf/pkg/apis/dpf/v1/zones"
 )
 
 func init() {
