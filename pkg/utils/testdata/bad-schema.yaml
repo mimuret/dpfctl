@@ -1,0 +1,7 @@
+---
+kind: TestSpec
+apiVersion: test.api.dns-platform.jp/v1
+resource:
+  Id: 1
+  Name: 1
+  Number: "apple"

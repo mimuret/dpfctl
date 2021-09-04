@@ -1,0 +1,23 @@
+{
+  "kind": "TestSpecList",
+  "apiVersion": "test.api.dns-platform.jp/v1",
+  "resource": {
+    "items": [
+      {
+        "Id": "id1",
+        "Name": "apple",
+        "Number": 10
+      },
+      {
+        "Id": "id2",
+        "Name": "orange",
+        "Number": 20
+      },
+      {
+        "Id": "id3",
+        "Name": "pen",
+        "Number": 40
+      }
+    ]
+  }
+}
