@@ -2,15 +2,17 @@ package utils
 
 import (
 	"context"
+	"fmt"
 	"time"
 
 	"github.com/mimuret/golang-iij-dpf/pkg/api"
-	"github.com/mimuret/golang-iij-dpf/pkg/apis/core"
+	"github.com/mimuret/golang-iij-dpf/pkg/apis/dpf/v1/core"
 	"github.com/mimuret/golang-iij-dpf/pkg/apiutils"
 )
 
 var (
-	NewClient = NewClientDefalt
+	NewClient  = NewClientDefalt
+	ErrTimeout = fmt.Errorf("timeout")
 )
 
 func NewClientDefalt(logger api.Logger) (api.ClientInterface, error) {
@@ -21,8 +23,15 @@ func NewClientDefalt(logger api.Logger) (api.ClientInterface, error) {
 	return api.NewClient(c.Token, c.Endpoint, logger), nil
 }
 
-func Wait(c *api.Client, jobId string, timeout time.Duration) (*core.Job, error) {
+func Wait(c api.ClientInterface, jobId string, timeout time.Duration) (*core.Job, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), timeout)
 	defer cancel()
-	return apiutils.WaitJob(ctx, c, jobId, time.Second)
+	job, err := apiutils.WaitJob(ctx, c, jobId, time.Second)
+	if err != nil {
+		if ctx.Err() != nil {
+			return nil, ErrTimeout
+		}
+		return job, err
+	}
+	return job, nil
 }
