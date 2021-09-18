@@ -1,6 +1,7 @@
 package params
 
 import (
+	. "github.com/mimuret/dpfctl/pkg/params"
 	"github.com/mimuret/golang-iij-dpf/pkg/api"
 	"github.com/mimuret/golang-iij-dpf/pkg/apis/dpf/v1/contracts"
 )

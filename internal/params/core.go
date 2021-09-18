@@ -3,6 +3,8 @@ package params
 import (
 	"fmt"
 
+	. "github.com/mimuret/dpfctl/pkg/params"
+
 	"github.com/mimuret/golang-iij-dpf/pkg/api"
 	"github.com/mimuret/golang-iij-dpf/pkg/apis"
 	"github.com/mimuret/golang-iij-dpf/pkg/apis/dpf/v1/core"

@@ -16,8 +16,10 @@ var (
 )
 
 type GroupMap struct {
+	// key is apiVersion
 	groupMap map[string]APISetSlice
-	cmdMap   map[string]*APISet
+	// key is
+	cmdMap map[string]*APISet
 }
 
 func NewGroupMap() *GroupMap {
