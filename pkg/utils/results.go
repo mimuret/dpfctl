@@ -7,7 +7,7 @@ import (
 	"go.uber.org/multierr"
 )
 
-var _ api.Spec = &CommandResults{}
+var _ api.ListSpec = &CommandResults{}
 
 type CommandResults struct {
 	Items []CommandResult
@@ -28,6 +28,10 @@ func (a *CommandResults) Add(reqId string, err error) {
 		Err:       err,
 	})
 }
+func (c *CommandResults) GetItems() interface{}                       { return &c.Items }
+func (c *CommandResults) Len() int                                    { return len(c.Items) }
+func (c *CommandResults) Index(i int) interface{}                     { return c.Items[i] }
+func (c *CommandResults) Init()                                       {}
 func (a *CommandResults) GetName() string                             { return "" }
 func (a *CommandResults) GetGroup() string                            { return "" }
 func (a *CommandResults) GetPathMethod(_ api.Action) (string, string) { return "", "" }
