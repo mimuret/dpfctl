@@ -1,37 +1,43 @@
 package printer
 
+import (
+	. "github.com/mimuret/dpfctl/pkg/printer"
+	"github.com/mimuret/golang-iij-dpf/pkg/api"
+	"github.com/mimuret/golang-iij-dpf/pkg/apis/dpf/v1/zones"
+)
+
 func init() {
-	SetBaseHumanReadablePrinter("current_records",
+	SetBaseHumanReadablePrinter([]api.Spec{&zones.CurrentRecordList{}},
 		[]string{"Id", "Name", "TTL", "RRtype", "RData"},
 		[]string{"{{ .Id }}", "{{ .Name }}", "{{ .TTL }}", "{{ .RRType }}", `{{ .RData }}`})
-	SetBaseHumanReadablePrinter("dnssec",
+	SetBaseHumanReadablePrinter([]api.Spec{&zones.Dnssec{}},
 		[]string{"Enabled", "State", "DsState"},
 		[]string{"{{ .Enabled }}", "{{ .State }}", "{{ .DsState }}"})
-	SetBaseHumanReadablePrinter("ds_records",
-		[]string{"RRSet", "TransitAt"},
-		[]string{"{{ .RRSet }}", "{{ .TransitAt }}"})
-	SetBaseHumanReadablePrinter("managed_dns_servers",
-		[]string{"Managed DNS Server Name"},
+	SetBaseHumanReadablePrinter([]api.Spec{&zones.DsRecordList{}},
+		[]string{"TransitAt", "RDATA"},
+		[]string{"{{ .TransitAt }}", "{{ .RRSet }}"})
+	SetBaseHumanReadablePrinter([]api.Spec{&zones.ManagedDnsList{}},
+		[]string{"ServerName"},
 		[]string{"{{ . }}"})
-	SetBaseHumanReadablePrinter("records",
+	SetBaseHumanReadablePrinter([]api.Spec{&zones.Record{}, &zones.RecordList{}},
 		[]string{"Id", "Name", "TTL", "RRtype", "RData", "State", "Operator"},
 		[]string{"{{ .Id }}", "{{ .Name }}", "{{ .TTL }}", "{{ .RRType }}", `{{ .RData  }}`, "{{ .State }}", "{{ .Operator }}"})
-	SetBaseHumanReadablePrinter("zone_default_ttl",
+	SetBaseHumanReadablePrinter([]api.Spec{&zones.DefaultTTL{}},
 		[]string{"Value", "State", "Operator"},
 		[]string{"{{ .Value }}", "{{ .State }}", "{{ .Operator }}"})
-	SetBaseHumanReadablePrinter("zone_histories",
+	SetBaseHumanReadablePrinter([]api.Spec{&zones.HistoryList{}},
 		[]string{"Id", "CommittedAt", "Operator", "Description"},
 		[]string{"{{ .Id }}", "{{ .CommittedAt }}", "{{ .Operator }}", "{{ .Description }}"})
-	SetBaseHumanReadablePrinter("zone_logs",
+	SetBaseHumanReadablePrinter([]api.Spec{&zones.LogList{}},
 		[]string{"RequestId", "Time", "Status"},
 		[]string{"{{ .RequestId }}", "{{ .Time }}", "{{ .Status }}"})
-	SetBaseHumanReadablePrinter("zone_proxy",
+	SetBaseHumanReadablePrinter([]api.Spec{&zones.ZoneProxy{}},
 		[]string{"Enabled"},
 		[]string{"{{ .Enabled }}"})
-	SetBaseHumanReadablePrinter("zone_proxy_health_check",
+	SetBaseHumanReadablePrinter([]api.Spec{&zones.ZoneProxyHealthCheckList{}},
 		[]string{"Address", "Status", "TsigName", "Enabled"},
 		[]string{"{{ .Address }}", "{{ .Status }}", "{{ .TsigName }}", "{{ .Enabled }}"})
-	SetBaseHumanReadablePrinter("zones_contract",
+	SetBaseHumanReadablePrinter([]api.Spec{&zones.Contract{}},
 		[]string{"ContractId", "ServiceCode", "State"},
 		[]string{"{{ .Id }}", "{{ .ServiceCode }}", "{{ .State }}"})
 

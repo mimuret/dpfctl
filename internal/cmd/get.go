@@ -40,12 +40,9 @@ func newGetCmd() *cobra.Command {
 	cmd := utils.NewCommand("get resource_name [id ...] [-o [json|yaml|line]]", api.ActionList, nil)
 	cmd.Args = cobra.MinimumNArgs(1)
 	cmd.RunE = prepareGet
-	cmd.PersistentFlags().StringVarP(&GetOption.Output, "output", "o", "line", "[json|yaml|line|go-template=]")
-	cmd.RegisterFlagCompletionFunc("output", func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
-		return []string{"yaml", "json", "line", "template", "go-template="}, cobra.ShellCompDirectiveFilterFileExt
-	})
-	cmd.PersistentFlags().StringVarP(&GetOption.Filename, "filename", "f", "", "output file name")
-	cmd.PersistentFlags().BoolVarP(&GetOption.NoHeaders, "no-headers", "", false, "no output headers")
+	cmd.ValidArgsFunction = func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
+		return utils.ValidArgsFunction(api.ActionList, args)
+	}
 	cmd.PersistentFlags().StringVarP(&GetOption.RowSearchParams, "row-search-params", "", "", "search params")
 	return cmd
 }
@@ -57,7 +54,6 @@ func prepareGet(cmd *cobra.Command, args []string) error {
 		readAPI *params.API
 		listAPI *params.API
 	)
-
 	p, err := printer.GetPrinter(args[0], GetOption.Output)
 	if err != nil {
 		return fmt.Errorf("failed to get output printer: %w", err)

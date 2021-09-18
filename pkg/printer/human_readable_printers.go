@@ -3,16 +3,19 @@ package printer
 import (
 	"bytes"
 	"fmt"
+	"reflect"
 	"regexp"
 	"text/template"
 
 	"github.com/Masterminds/sprig"
 	"github.com/mimuret/dpfctl/pkg/utils"
+	"github.com/mimuret/golang-iij-dpf/pkg/api"
 )
 
 var (
-	humanReadablePrinters = humanReadablePrintersMap{}
-	baseArgsTemplateRgexp = regexp.MustCompile("{{([^{}]*)}}")
+	defaultHumanReadablePrinter = DefaultHumanReadablePrinter{}
+	humanReadablePrinters       = map[string]humanReadablePrintersMap{}
+	baseArgsTemplateRgexp       = regexp.MustCompile("{{([^{}]*)}}")
 )
 
 type HumanReadablePrinter interface {
@@ -20,16 +23,47 @@ type HumanReadablePrinter interface {
 	GetRow(interface{}) []interface{}
 }
 
-func GetHumanReadablePrinter(name string) HumanReadablePrinter {
-	return humanReadablePrinters[name]
+type DefaultHumanReadablePrinter struct{}
+
+func (p *DefaultHumanReadablePrinter) GetHeaders() []interface{} {
+	return []interface{}{"not support line print"}
 }
-func SetHumanReadablePrinter(name string, hPrinter HumanReadablePrinter) {
-	humanReadablePrinters[name] = hPrinter
+func (p *DefaultHumanReadablePrinter) GetRow(v interface{}) []interface{} {
+	return []interface{}{v}
+}
+
+func GetHumanReadablePrinter(s api.Spec) HumanReadablePrinter {
+	st := reflect.TypeOf(s)
+	if st.Kind() != reflect.Ptr {
+		name := st.Elem().Name()
+		panic(fmt.Sprintf("SetHumanReadablePrinter.Add name %s: is not ptr %v", name, s))
+	}
+	name := st.Elem().Name()
+	if _, ok := humanReadablePrinters[s.GetGroup()]; !ok {
+		return &DefaultHumanReadablePrinter{}
+	}
+	if _, ok := humanReadablePrinters[s.GetGroup()][name]; !ok {
+		return &DefaultHumanReadablePrinter{}
+	}
+	return humanReadablePrinters[s.GetGroup()][name]
+}
+
+func SetHumanReadablePrinter(s api.Spec, hPrinter HumanReadablePrinter) {
+	st := reflect.TypeOf(s)
+	if st.Kind() != reflect.Ptr {
+		name := st.Elem().Name()
+		panic(fmt.Sprintf("SetHumanReadablePrinter.Add name %s: is not ptr %v", name, s))
+	}
+	name := st.Elem().Name()
+	if _, ok := humanReadablePrinters[s.GetGroup()]; !ok {
+		humanReadablePrinters[s.GetGroup()] = humanReadablePrintersMap{}
+	}
+	humanReadablePrinters[s.GetGroup()][name] = hPrinter
 }
 
 type humanReadablePrintersMap map[string]HumanReadablePrinter
 
-func SetBaseHumanReadablePrinter(name string, headers []string, argsTemplate []string) {
+func SetBaseHumanReadablePrinter(specs []api.Spec, headers []string, argsTemplate []string) {
 	//	baseArgsTemplateRgexp := regexp.MustCompile("{{([^{}]*)}}")
 	//	matches := baseArgsTemplateRgexp.FindAllStringSubmatch(argsTemplateStr, -1)
 	rowTemplate := []*template.Template{}
@@ -37,10 +71,12 @@ func SetBaseHumanReadablePrinter(name string, headers []string, argsTemplate []s
 		t := template.Must(template.New("").Funcs(sprig.TxtFuncMap()).Parse(argTemplate))
 		rowTemplate = append(rowTemplate, t)
 	}
-	SetHumanReadablePrinter(name, &BaseHumanReadablePrinter{
-		Headers:     headers,
-		RowTemplate: rowTemplate,
-	})
+	for _, s := range specs {
+		SetHumanReadablePrinter(s, &BaseHumanReadablePrinter{
+			Headers:     headers,
+			RowTemplate: rowTemplate,
+		})
+	}
 }
 
 type BaseHumanReadablePrinter struct {
