@@ -11,11 +11,11 @@ import (
 )
 
 var (
-	NewClient  = NewClientDefalt
+	NewClient  = NewClientDefault
 	ErrTimeout = fmt.Errorf("timeout")
 )
 
-func NewClientDefalt(logger api.Logger) (api.ClientInterface, error) {
+func NewClientDefault(logger api.Logger) (api.ClientInterface, error) {
 	c, err := GetContexts()
 	if err != nil {
 		return nil, err

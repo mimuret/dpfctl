@@ -247,14 +247,6 @@ github.com/miekg/dns v1.0.14/go.mod h1:W1PPwlIAgtquWBMBEV9nkV9Cazfe8ScdGz/Lj7v3N
 github.com/miekg/dns v1.1.43 h1:JKfpVSCB84vrAmHzyrsxB5NAr5kLoMXZArPSw7Qlgyg=
 github.com/miekg/dns v1.1.43/go.mod h1:+evo5L0630/F6ca/Z9+GAqzhjGyn8/c+TBaOyfEl0V4=
 github.com/mimuret/dnsutils v0.4.1-0.20210816163621-f6c46200409e/go.mod h1:qFQbx3kJJeom3AJtiiHkIphVKYGiDLZq42A7sGZMk68=
-github.com/mimuret/golang-iij-dpf v0.5.1-0.20210902153803-dfcda1ca35c9 h1:6CakSI++CmszIZEsD8WESBrW7tjv7RmckT3ZeUEbGdM=
-github.com/mimuret/golang-iij-dpf v0.5.1-0.20210902153803-dfcda1ca35c9/go.mod h1:S6/zxWQE1T9qNiO7U7jwKWKF7Hp2TzUIGplt8U242F8=
-github.com/mimuret/golang-iij-dpf v0.5.1-0.20210904102228-86cf77d01d0d h1:xUmtzEHFosyLszuNIcjU5MvnbiyY2G08VUqi7wBaP/c=
-github.com/mimuret/golang-iij-dpf v0.5.1-0.20210904102228-86cf77d01d0d/go.mod h1:S6/zxWQE1T9qNiO7U7jwKWKF7Hp2TzUIGplt8U242F8=
-github.com/mimuret/golang-iij-dpf v0.5.1-0.20210904104034-248a8ef381b8 h1:UBz7W8d3FrUm+ti7JPyR0Q08otTTSLQNbPFQl+cQMb8=
-github.com/mimuret/golang-iij-dpf v0.5.1-0.20210904104034-248a8ef381b8/go.mod h1:S6/zxWQE1T9qNiO7U7jwKWKF7Hp2TzUIGplt8U242F8=
-github.com/mimuret/golang-iij-dpf v0.5.1-0.20210904105143-59745ef8d00b h1:KyJw0qgB13RZ2LAkP0MYacmOuGLERn/r2b7q9R53bn4=
-github.com/mimuret/golang-iij-dpf v0.5.1-0.20210904105143-59745ef8d00b/go.mod h1:S6/zxWQE1T9qNiO7U7jwKWKF7Hp2TzUIGplt8U242F8=
 github.com/mimuret/golang-iij-dpf v0.5.1-0.20210904113747-aaae5621c8f8 h1:Y3T9uzevQNuRL9Z4kx/L2YjFc9QB/JZnZEgnik8UT14=
 github.com/mimuret/golang-iij-dpf v0.5.1-0.20210904113747-aaae5621c8f8/go.mod h1:S6/zxWQE1T9qNiO7U7jwKWKF7Hp2TzUIGplt8U242F8=
 github.com/mitchellh/cli v1.0.0/go.mod h1:hNIlj7HEI86fIcpObd7a0FcrxTWetlwJDGcceTlRvqc=
@@ -753,3 +745,5 @@ honnef.co/go/tools v0.0.1-2020.1.4/go.mod h1:X/FiERA/W4tHapMX5mGpAtMSVEeEUOyHaw9
 rsc.io/binaryregexp v0.2.0/go.mod h1:qTv7/COck+e2FymRvadv62gMdZztPaShugOCi3I+8D8=
 rsc.io/quote/v3 v3.1.0/go.mod h1:yEA65RcK8LyAZtP9Kv3t0HmxON59tX3rD+tICJqUlj0=
 rsc.io/sampler v1.3.0/go.mod h1:T1hPZKmBbMNahiBKFy5HrXp6adAjACjK9JXDnKaTXpA=
+sigs.k8s.io/yaml v1.2.0 h1:kr/MCeFWJWTwyaHoR9c8EjH9OumOmoF9YGiZd7lFm/Q=
+sigs.k8s.io/yaml v1.2.0/go.mod h1:yfXDCHCao9+ENCvLSE62v9VSji2MKu5jeNfTrofGhJc=

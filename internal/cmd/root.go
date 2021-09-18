@@ -28,6 +28,9 @@ import (
 	"fmt"
 	"os"
 
+	_ "github.com/mimuret/dpfctl/internal/params"
+	_ "github.com/mimuret/dpfctl/internal/printer"
+
 	"github.com/mimuret/dpfctl/pkg/utils"
 	"github.com/mimuret/golang-iij-dpf/pkg/api"
 	"github.com/spf13/cobra"
@@ -93,7 +96,6 @@ func init() {
 	rootCmd.AddCommand(newDeleteCmd())
 	rootCmd.AddCommand(newCancelCmd())
 	rootCmd.AddCommand(newRunCmd())
-
 	rootCmd.AddCommand(newCmdApply())
 }
 

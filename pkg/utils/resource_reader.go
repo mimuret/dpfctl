@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"os"
 
 	"github.com/mimuret/golang-iij-dpf/pkg/apis"
 	"github.com/mimuret/golang-iij-dpf/pkg/schema"
@@ -23,9 +24,19 @@ func NewResourceReader(fs afero.Fs) *ResourceReader {
 }
 
 func (reader *ResourceReader) GetResources(filename string) ([]apis.Spec, error) {
-	r, err := reader.fs.Open(filename)
-	if err != nil {
-		return nil, err
+	var (
+		r   io.Reader
+		err error
+	)
+	if filename == "-" {
+		r = os.Stdin
+	} else {
+		f, err := reader.fs.Open(filename)
+		if err != nil {
+			return nil, err
+		}
+		defer f.Close()
+		r = f
 	}
 	docs, err := reader.ReadYamlDocuments(r)
 	if err != nil {

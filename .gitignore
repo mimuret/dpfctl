@@ -16,6 +16,6 @@
 
 .vscode
 
-dpfctl
+./dpfctl
 
 cover.html

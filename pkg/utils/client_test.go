@@ -22,7 +22,7 @@ var _ = Describe("client", func() {
 		)
 		When("context exists", func() {
 			BeforeEach(func() {
-				cl, err = utils.NewClientDefalt(nil)
+				cl, err = utils.NewClientDefault(nil)
 			})
 			It("returns github.com/mimuret/golang-iij-dpf/pkg/api.Client", func() {
 				Expect(cl).NotTo(BeNil())
@@ -34,7 +34,7 @@ var _ = Describe("client", func() {
 		When("context not eixst", func() {
 			BeforeEach(func() {
 				viper.Set("context", "NOTDOUND")
-				cl, err = utils.NewClientDefalt(nil)
+				cl, err = utils.NewClientDefault(nil)
 			})
 			It("returns err", func() {
 				Expect(err).To(HaveOccurred())

@@ -54,7 +54,7 @@ func prepareGet(cmd *cobra.Command, args []string) error {
 		readAPI *params.API
 		listAPI *params.API
 	)
-	p, err := printer.GetPrinter(args[0], GetOption.Output)
+	p, err := printer.GetPrinter(spec, GetOption.Output)
 	if err != nil {
 		return fmt.Errorf("failed to get output printer: %w", err)
 	}

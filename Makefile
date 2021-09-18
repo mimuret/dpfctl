@@ -1,6 +1,6 @@
 all: test fmt
 	go mod tidy
-	go build
+	go build -o dpfctl cmd/dpfctl/main.go
 	./dpfctl completion zsh > completion.zsh
 	./dpfctl completion bash > completion.bash
 

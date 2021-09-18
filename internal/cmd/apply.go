@@ -38,7 +38,10 @@ func newCmdApply() *cobra.Command {
 }
 
 func runApply(cmd *cobra.Command, args []string) error {
-	p, err := printer.GetPrinter(args[0], viper.GetString("output"))
+	var (
+		results = &utils.CommandResults{}
+	)
+	p, err := printer.GetPrinter(results, viper.GetString("output"))
 	if err != nil {
 		return err
 	}
@@ -67,9 +70,6 @@ func runApply(cmd *cobra.Command, args []string) error {
 			specs = append(specs, resource)
 		}
 	}
-	var (
-		results = &utils.CommandResults{}
-	)
 	actions := []api.Action{}
 	for i, apisSpec := range specs {
 		action, err := prepare(cl, apisSpec)

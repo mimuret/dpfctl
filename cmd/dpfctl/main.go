@@ -23,7 +23,9 @@ SOFTWARE.
 */
 package main
 
-import "github.com/mimuret/dpfctl/internal/cmd"
+import (
+	"github.com/mimuret/dpfctl/internal/cmd"
+)
 
 func main() {
 	cmd.Execute()

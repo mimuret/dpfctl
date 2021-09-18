@@ -13,11 +13,11 @@ import (
 )
 
 func commonChangeRunFunc(runFunc func(apis.Spec) (string, error), cmd *cobra.Command, cl api.ClientInterface, args []string, resources []apis.Spec) error {
-	p, err := printer.GetPrinter(args[0], viper.GetString("output"))
+	results := &utils.CommandResults{}
+	p, err := printer.GetPrinter(results, viper.GetString("output"))
 	if err != nil {
 		return err
 	}
-	results := &utils.CommandResults{}
 	for _, resource := range resources {
 		if viper.GetBool("dry-run") {
 			fmt.Printf("[DryRun] %s %v", args[0], resource)

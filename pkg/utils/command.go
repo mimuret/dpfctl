@@ -10,11 +10,45 @@ import (
 	"github.com/mimuret/golang-iij-dpf/pkg/api"
 	"github.com/mimuret/golang-iij-dpf/pkg/apis"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
-func ValidArgsFunction(action api.Action, cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
+func NewCommand(use string, action api.Action, runFunc func(*cobra.Command, api.ClientInterface, []string, []apis.Spec) error) *cobra.Command {
+	cmd := &cobra.Command{
+		Use: use,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			var (
+				spec      apis.Spec
+				resources []apis.Spec
+				err       error
+				reader    = NewResourceReader(nil)
+			)
+			if viper.GetString("filename") != "" {
+				resources, err = reader.GetResources(viper.GetString("filename"))
+			} else {
+				if len(args) == 0 {
+					return fmt.Errorf("subcmd is required")
+				}
+				spec, err = GetSpecFromArgs(cmd, args, action)
+				resources = append(resources, spec)
+			}
+			if err != nil {
+				return err
+			}
+			cl, err := NewClient(nil)
+			if err != nil {
+				return err
+			}
+			return runFunc(cmd, cl, args, resources)
+		},
+	}
+	SetUsage(cmd, action)
+	return cmd
+}
+
+func ValidArgsFunction(action api.Action, args []string) ([]string, cobra.ShellCompDirective) {
 	if len(args) == 0 {
-		return params.GetValidArgs(api.ActionRead), cobra.ShellCompDirectiveDefault
+		return params.GetValidArgs(action), cobra.ShellCompDirectiveDefault
 	}
 	return nil, cobra.ShellCompDirectiveNoSpace
 }
@@ -58,7 +92,6 @@ func getCmdUsage(subcmd string, action api.Action) *uitable.Table {
 				}
 				t.AddRow(fmt.Sprintf("  %s %s %s", subcmd, apiSet.Name, getParams.String()), apiSet.Description)
 			}
-
 		})
 	})
 	return t
@@ -113,34 +146,26 @@ Use "{{.CommandPath}} [command] --help" for more information about a command.{{e
 
 }
 
-func NewCommand(use string, action api.Action, runFunc func(*cobra.Command, []string, apis.Spec) error) *cobra.Command {
-	cmd := &cobra.Command{
-		Use: use,
-		ValidArgsFunction: func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
-			return ValidArgsFunction(action, cmd, args, toComplete)
-		},
-		RunE: func(cmd *cobra.Command, args []string) error {
-			spec, err := GetSpecFromArgs(cmd, args, action)
-			if err != nil {
-				return err
-			}
-			return runFunc(cmd, args, spec)
-		},
-	}
-	SetUsage(cmd, action)
-	return cmd
-}
-
 type CommonParam struct {
 	DryRun      bool
 	Wait        bool
 	WaitTimeout time.Duration
 }
 
-func ChangeCmd(cmd *cobra.Command, cp *CommonParam) {
-	cmd.PersistentFlags().BoolVarP(&cp.DryRun, "dry-run", "", false, "not create and update")
-	cmd.PersistentFlags().BoolVarP(&cp.Wait, "wait", "", false, "wait async response")
-	cmd.PersistentFlags().DurationVarP(&cp.WaitTimeout, "wait-timeout", "", time.Minute, "wait async response timeout")
+func ChangeCmd(cmd *cobra.Command) {
+	cmd.PersistentFlags().BoolP("dry-run", "", false, "not create and update")
+	viper.BindPFlag("dry-run", cmd.PersistentFlags().Lookup("dry-run"))
+	cmd.PersistentFlags().BoolP("wait", "", false, "wait async response")
+	viper.BindPFlag("wait", cmd.PersistentFlags().Lookup("wait"))
+	cmd.PersistentFlags().DurationP("wait-timeout", "", time.Minute, "wait async response timeout")
+	viper.BindPFlag("wait-timeout", cmd.PersistentFlags().Lookup("wait-timeout"))
+
+	cmd.PersistentFlags().StringP("filename", "f", "", "resource data file")
+	cmd.MarkPersistentFlagFilename("filename", "yaml", "yml", "json")
+	cmd.RegisterFlagCompletionFunc("filename", func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
+		return nil, cobra.ShellCompDirectiveFilterFileExt
+	})
+	viper.BindPFlag("filename", cmd.PersistentFlags().Lookup("filename"))
 }
 
 func GetSpecFromArgs(cmd *cobra.Command, args []string, action api.Action) (apis.Spec, error) {
