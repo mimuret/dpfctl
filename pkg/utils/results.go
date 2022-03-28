@@ -19,12 +19,12 @@ func (a *CommandResults) DeepCopyObject() api.Object {
 	c.Items = append(c.Items, a.Items...)
 	return c
 }
-func (a *CommandResults) Add(reqId string, err error) {
+func (a *CommandResults) Add(reqID string, err error) {
 	if err != nil {
 		a.Err = multierr.Append(a.Err, err)
 	}
 	a.Items = append(a.Items, CommandResult{
-		RequestId: reqId,
+		RequestID: reqID,
 		Err:       err,
 	})
 }
@@ -41,7 +41,7 @@ func (a *CommandResults) WaitJob(cl api.ClientInterface, v *viper.Viper) {
 	}
 	for i, result := range a.Items {
 		if result.Err == nil {
-			job, err := Wait(cl, result.RequestId, v.GetDuration("wait-timeout"))
+			job, err := Wait(cl, result.RequestID, v.GetDuration("wait-timeout"))
 			a.Items[i].Job = job
 			a.Items[i].Err = err
 			if err != nil {
@@ -52,7 +52,7 @@ func (a *CommandResults) WaitJob(cl api.ClientInterface, v *viper.Viper) {
 }
 
 type CommandResult struct {
-	RequestId string
+	RequestID string
 	Err       error
 	Job       *core.Job
 }

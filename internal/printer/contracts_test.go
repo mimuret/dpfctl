@@ -21,7 +21,7 @@ var _ = Describe("contracts", func() {
 	Context("CommonConfig", func() {
 		var (
 			s = &contracts.CommonConfig{
-				Id:                3,
+				ID:                3,
 				Name:              "共通設定1",
 				ManagedDNSEnabled: types.Disabled,
 				Default:           types.Enabled,
@@ -33,7 +33,7 @@ var _ = Describe("contracts", func() {
 			row = p.GetRow(s)
 		})
 		It("returns headers", func() {
-			Expect(headers).To(Equal([]interface{}{"Id", "Name", "ManagedDNSEnabled", "Default"}))
+			Expect(headers).To(Equal([]interface{}{"ID", "Name", "ManagedDNSEnabled", "Default"}))
 		})
 		It("returns row", func() {
 			Expect(row).To(Equal([]interface{}{"3", "共通設定1", "Disabled", "Enabled"}))
@@ -44,7 +44,7 @@ var _ = Describe("contracts", func() {
 			s = &contracts.CommonConfigList{
 				Items: []contracts.CommonConfig{
 					{
-						Id:                3,
+						ID:                3,
 						Name:              "共通設定1",
 						ManagedDNSEnabled: types.Disabled,
 						Default:           types.Enabled,
@@ -58,7 +58,7 @@ var _ = Describe("contracts", func() {
 			row = p.GetRow(s.Items[0])
 		})
 		It("returns headers", func() {
-			Expect(headers).To(Equal([]interface{}{"Id", "Name", "ManagedDNSEnabled", "Default"}))
+			Expect(headers).To(Equal([]interface{}{"ID", "Name", "ManagedDNSEnabled", "Default"}))
 		})
 		It("returns row", func() {
 			Expect(row).To(Equal([]interface{}{"3", "共通設定1", "Disabled", "Enabled"}))
@@ -76,7 +76,7 @@ var _ = Describe("contracts", func() {
 						Operation: "add_cc_primary",
 						Target:    "1",
 						Status:    core.LogStatusStart,
-						RequestId: "C694DCE2D20F46E5A8DCE9EA43042B06",
+						RequestID: "C694DCE2D20F46E5A8DCE9EA43042B06",
 					}, {
 						Time:      atTime,
 						LogType:   "common_config",
@@ -84,7 +84,7 @@ var _ = Describe("contracts", func() {
 						Operation: "create_tsig",
 						Target:    "2",
 						Status:    core.LogStatusSuccess,
-						RequestId: "383C5E4F7968420AAE67A1636CF80497",
+						RequestID: "383C5E4F7968420AAE67A1636CF80497",
 					},
 				},
 			}
@@ -95,7 +95,7 @@ var _ = Describe("contracts", func() {
 			row = p.GetRow(s.Items[0])
 		})
 		It("returns headers", func() {
-			Expect(headers).To(Equal([]interface{}{"RequestId", "Time", "Status"}))
+			Expect(headers).To(Equal([]interface{}{"RequestID", "Time", "Status"}))
 		})
 		It("returns row", func() {
 			Expect(row).To(Equal([]interface{}{"C694DCE2D20F46E5A8DCE9EA43042B06", "2021-06-20 07:55:17.753 +0000 UTC", "start"}))
@@ -161,11 +161,11 @@ var _ = Describe("contracts", func() {
 			s = &contracts.ContractZoneList{
 				Items: []core.Zone{
 					{
-						Id:             "m1",
+						ID:             "m1",
 						ServiceCode:    "dpm000001",
 						Name:           "example.jp.",
 						State:          types.StateRunning,
-						CommonConfigId: 1,
+						CommonConfigID: 1,
 					},
 				},
 			}
@@ -176,7 +176,7 @@ var _ = Describe("contracts", func() {
 			row = p.GetRow(s.Items[0])
 		})
 		It("returns headers", func() {
-			Expect(headers).To(Equal([]interface{}{"ZoneId", "ServiceCode", "Name", "State", "CommonConfigId"}))
+			Expect(headers).To(Equal([]interface{}{"ZoneID", "ServiceCode", "Name", "State", "CommonConfigID"}))
 		})
 		It("returns row", func() {
 			Expect(row).To(Equal([]interface{}{"m1", "dpm000001", "example.jp.", "Started", "1"}))

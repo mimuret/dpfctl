@@ -16,6 +16,7 @@ limitations under the License.
 package cmd
 
 import (
+	"context"
 	"fmt"
 	"os"
 
@@ -123,9 +124,9 @@ func runList(cmd *cobra.Command, args []string, spec apis.Spec) error {
 		}
 	}
 	if countable, ok := listSpec.(api.CountableListSpec); ok {
-		_, err = cl.ListAll(countable, sp)
+		_, err = cl.ListAll(context.Background(), countable, sp)
 	} else {
-		_, err = cl.List(listSpec, sp)
+		_, err = cl.List(context.Background(), listSpec, sp)
 	}
 	if err != nil {
 		return err
@@ -138,7 +139,7 @@ func runRead(cmd *cobra.Command, args []string, spec apis.Spec) error {
 	if err != nil {
 		return err
 	}
-	_, err = cl.Read(spec)
+	_, err = cl.Read(context.Background(), spec)
 	if err != nil {
 		return err
 	}

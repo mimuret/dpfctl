@@ -50,16 +50,16 @@ var _ = Describe("client", func() {
 		})
 		When("normal", func() {
 			BeforeEach(func() {
-				cl.ReadFunc = func(s api.Spec) (requestId string, err error) {
+				cl.ReadFunc = func(s api.Spec) (requestID string, err error) {
 					job := s.(*core.Job)
-					job.RequestId = "9BCFE2E9C10D4D9A8444CB0B48C72830"
+					job.RequestID = "9BCFE2E9C10D4D9A8444CB0B48C72830"
 					job.Status = core.JobStatusSuccessful
 					return "ok", nil
 				}
 			})
 			It("returns job", func() {
 				job := &core.Job{
-					RequestId: "9BCFE2E9C10D4D9A8444CB0B48C72830",
+					RequestID: "9BCFE2E9C10D4D9A8444CB0B48C72830",
 					Status:    core.JobStatusSuccessful,
 				}
 				Eventually(func() (*core.Job, error) {
@@ -69,9 +69,9 @@ var _ = Describe("client", func() {
 		})
 		When("fail job", func() {
 			BeforeEach(func() {
-				cl.ReadFunc = func(s api.Spec) (requestId string, err error) {
+				cl.ReadFunc = func(s api.Spec) (requestID string, err error) {
 					job := s.(*core.Job)
-					job.RequestId = "9BCFE2E9C10D4D9A8444CB0B48C72830"
+					job.RequestID = "9BCFE2E9C10D4D9A8444CB0B48C72830"
 					job.Status = core.JobStatusFailed
 					return "ok", nil
 				}
@@ -85,9 +85,9 @@ var _ = Describe("client", func() {
 		})
 		When("timeout", func() {
 			BeforeEach(func() {
-				cl.ReadFunc = func(s api.Spec) (requestId string, err error) {
+				cl.ReadFunc = func(s api.Spec) (requestID string, err error) {
 					job := s.(*core.Job)
-					job.RequestId = "9BCFE2E9C10D4D9A8444CB0B48C72830"
+					job.RequestID = "9BCFE2E9C10D4D9A8444CB0B48C72830"
 					job.Status = core.JobStatusRunning
 					return "ok", nil
 				}

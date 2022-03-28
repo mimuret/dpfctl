@@ -2,7 +2,7 @@
 kind: TestSpec
 apiVersion: test.api.dns-platform.jp/v1
 resource:
-  Id: "id10"
+  ID: "id10"
   Name: "green"
   Number: 999
 ---
@@ -10,12 +10,12 @@ kind: TestSpecList
 apiVersion: test.api.dns-platform.jp/v1
 resource:
   items:
-    - Id: "id1"
+    - ID: "id1"
       Name: "apple"
       Number: 10
-    - Id: "id2"
+    - ID: "id2"
       Name: "orange"
       Number: 20
-    - Id: "id3"
+    - ID: "id3"
       Name: "pen"
       Number: 40

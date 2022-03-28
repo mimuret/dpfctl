@@ -21,11 +21,11 @@ var _ = Describe("CommandResults", func() {
 	)
 	BeforeEach(func() {
 		s1 = utils.CommandResult{
-			RequestId: "D44A2C1138B84CD0A20E858F6D57C17D",
+			RequestID: "D44A2C1138B84CD0A20E858F6D57C17D",
 			Err:       nil,
 		}
 		s2 = utils.CommandResult{
-			RequestId: "3FC8732752844F029E4BC7DB4A60799C",
+			RequestID: "3FC8732752844F029E4BC7DB4A60799C",
 			Err:       nil,
 		}
 		s = utils.CommandResults{
@@ -70,9 +70,9 @@ var _ = Describe("CommandResults", func() {
 				Expect(c.Err).To(HaveOccurred())
 			})
 			It("returns []interface{}", func() {
-				Expect(c.Items[0].RequestId).To(Equal("D44A2C1138B84CD0A20E858F6D57C17D"))
+				Expect(c.Items[0].RequestID).To(Equal("D44A2C1138B84CD0A20E858F6D57C17D"))
 				Expect(c.Items[0].Err).To(Equal(fmt.Errorf("error")))
-				Expect(c.Items[1].RequestId).To(Equal("3FC8732752844F029E4BC7DB4A60799C"))
+				Expect(c.Items[1].RequestID).To(Equal("3FC8732752844F029E4BC7DB4A60799C"))
 				Expect(c.Items[1].Err).To(BeNil())
 			})
 		})
@@ -106,10 +106,10 @@ var _ = Describe("CommandResults", func() {
 			})
 			When("all job succeed", func() {
 				BeforeEach(func() {
-					cl.ReadFunc = func(s api.Spec) (requestId string, err error) {
+					cl.ReadFunc = func(s api.Spec) (requestID string, err error) {
 						job := s.(*core.Job)
 						job.Status = core.JobStatusSuccessful
-						return job.RequestId, nil
+						return job.RequestID, nil
 					}
 					c.WaitJob(cl, v)
 				})
@@ -125,10 +125,10 @@ var _ = Describe("CommandResults", func() {
 			})
 			When("job failed", func() {
 				BeforeEach(func() {
-					cl.ReadFunc = func(s api.Spec) (requestId string, err error) {
+					cl.ReadFunc = func(s api.Spec) (requestID string, err error) {
 						job := s.(*core.Job)
 						job.Status = core.JobStatusFailed
-						return job.RequestId, nil
+						return job.RequestID, nil
 					}
 					c.WaitJob(cl, v)
 				})

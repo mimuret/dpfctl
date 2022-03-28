@@ -23,10 +23,10 @@ func NewClientDefault(logger api.Logger) (api.ClientInterface, error) {
 	return api.NewClient(c.Token, c.Endpoint, logger), nil
 }
 
-func Wait(c api.ClientInterface, jobId string, timeout time.Duration) (*core.Job, error) {
+func Wait(c api.ClientInterface, jobID string, timeout time.Duration) (*core.Job, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), timeout)
 	defer cancel()
-	job, err := apiutils.WaitJob(ctx, c, jobId, time.Second)
+	job, err := apiutils.WaitJob(ctx, c, jobID, time.Second)
 	if err != nil {
 		if ctx.Err() != nil {
 			return nil, ErrTimeout

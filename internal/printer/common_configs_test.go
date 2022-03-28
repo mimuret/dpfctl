@@ -21,9 +21,9 @@ var _ = Describe("common_configs", func() {
 	Context("CcPrimary", func() {
 		var (
 			s = &common_configs.CcPrimary{
-				Id:      3,
+				ID:      3,
 				Address: net.ParseIP("192.168.0.1"),
-				TsigId:  9,
+				TsigID:  9,
 				Enabled: types.Enabled,
 			}
 		)
@@ -33,7 +33,7 @@ var _ = Describe("common_configs", func() {
 			row = p.GetRow(s)
 		})
 		It("returns headers", func() {
-			Expect(headers).To(Equal([]interface{}{"Id", "Address", "TsigId", "Enabled"}))
+			Expect(headers).To(Equal([]interface{}{"ID", "Address", "TsigID", "Enabled"}))
 		})
 		It("returns row", func() {
 			Expect(row).To(Equal([]interface{}{"3", "192.168.0.1", "9", "Enabled"}))
@@ -44,9 +44,9 @@ var _ = Describe("common_configs", func() {
 			s = &common_configs.CcPrimaryList{
 				Items: []common_configs.CcPrimary{
 					{
-						Id:      3,
+						ID:      3,
 						Address: net.ParseIP("192.168.0.1"),
-						TsigId:  9,
+						TsigID:  9,
 						Enabled: types.Enabled,
 					},
 				},
@@ -58,7 +58,7 @@ var _ = Describe("common_configs", func() {
 			row = p.GetRow(s.Items[0])
 		})
 		It("returns headers", func() {
-			Expect(headers).To(Equal([]interface{}{"Id", "Address", "TsigId", "Enabled"}))
+			Expect(headers).To(Equal([]interface{}{"ID", "Address", "TsigID", "Enabled"}))
 		})
 		It("returns row", func() {
 			Expect(row).To(Equal([]interface{}{"3", "192.168.0.1", "9", "Enabled"}))
@@ -67,9 +67,9 @@ var _ = Describe("common_configs", func() {
 	Context("CcSecNotifiedServer", func() {
 		var (
 			s = &common_configs.CcSecNotifiedServer{
-				Id:      3,
+				ID:      3,
 				Address: net.ParseIP("192.168.0.1"),
-				TsigId:  9,
+				TsigID:  9,
 			}
 		)
 		BeforeEach(func() {
@@ -78,7 +78,7 @@ var _ = Describe("common_configs", func() {
 			row = p.GetRow(s)
 		})
 		It("returns headers", func() {
-			Expect(headers).To(Equal([]interface{}{"Id", "Address", "TsigId"}))
+			Expect(headers).To(Equal([]interface{}{"ID", "Address", "TsigID"}))
 		})
 		It("returns row", func() {
 			Expect(row).To(Equal([]interface{}{"3", "192.168.0.1", "9"}))
@@ -89,9 +89,9 @@ var _ = Describe("common_configs", func() {
 			s = &common_configs.CcSecNotifiedServerList{
 				Items: []common_configs.CcSecNotifiedServer{
 					{
-						Id:      3,
+						ID:      3,
 						Address: net.ParseIP("192.168.0.1"),
-						TsigId:  9,
+						TsigID:  9,
 					},
 				},
 			}
@@ -102,7 +102,7 @@ var _ = Describe("common_configs", func() {
 			row = p.GetRow(s.Items[0])
 		})
 		It("returns headers", func() {
-			Expect(headers).To(Equal([]interface{}{"Id", "Address", "TsigId"}))
+			Expect(headers).To(Equal([]interface{}{"ID", "Address", "TsigID"}))
 		})
 		It("returns row", func() {
 			Expect(row).To(Equal([]interface{}{"3", "192.168.0.1", "9"}))
@@ -111,9 +111,9 @@ var _ = Describe("common_configs", func() {
 	Context("CcSecTransferAcl", func() {
 		var (
 			s = &common_configs.CcSecTransferAcl{
-				Id:      3,
+				ID:      3,
 				Network: testtool.MustParseIPNet("192.168.0.0/24"),
-				TsigId:  9,
+				TsigID:  9,
 			}
 		)
 		BeforeEach(func() {
@@ -122,7 +122,7 @@ var _ = Describe("common_configs", func() {
 			row = p.GetRow(s)
 		})
 		It("returns headers", func() {
-			Expect(headers).To(Equal([]interface{}{"Id", "Network", "TsigId"}))
+			Expect(headers).To(Equal([]interface{}{"ID", "Network", "TsigID"}))
 		})
 		It("returns row", func() {
 			Expect(row).To(Equal([]interface{}{"3", "192.168.0.0/24", "9"}))
@@ -133,9 +133,9 @@ var _ = Describe("common_configs", func() {
 			s = &common_configs.CcSecTransferAclList{
 				Items: []common_configs.CcSecTransferAcl{
 					{
-						Id:      3,
+						ID:      3,
 						Network: testtool.MustParseIPNet("192.168.0.0/24"),
-						TsigId:  9,
+						TsigID:  9,
 					},
 				},
 			}
@@ -146,7 +146,7 @@ var _ = Describe("common_configs", func() {
 			row = p.GetRow(s.Items[0])
 		})
 		It("returns headers", func() {
-			Expect(headers).To(Equal([]interface{}{"Id", "Network", "TsigId"}))
+			Expect(headers).To(Equal([]interface{}{"ID", "Network", "TsigID"}))
 		})
 		It("returns row", func() {
 			Expect(row).To(Equal([]interface{}{"3", "192.168.0.0/24", "9"}))

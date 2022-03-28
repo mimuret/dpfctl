@@ -16,6 +16,8 @@ limitations under the License.
 package cmd
 
 import (
+	"context"
+
 	"github.com/mimuret/dpfctl/pkg/utils"
 	"github.com/mimuret/golang-iij-dpf/pkg/api"
 	"github.com/mimuret/golang-iij-dpf/pkg/apis"
@@ -25,7 +27,7 @@ import (
 func newDeleteCmd() *cobra.Command {
 	cmd := utils.NewCommand("delete [resource_name id ...|-f filename]", api.ActionUpdate, func(cmd *cobra.Command, cl api.ClientInterface, args []string, resources []apis.Spec) error {
 		return commonChangeRunFunc(func(s apis.Spec) (string, error) {
-			return cl.Delete(s)
+			return cl.Delete(context.Background(), s)
 		}, cmd, cl, args, resources)
 	})
 	cmd.ValidArgsFunction = func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {

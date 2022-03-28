@@ -8,15 +8,15 @@ import (
 
 func init() {
 	SetBaseHumanReadablePrinter([]api.Spec{&core.Contract{}, &core.ContractList{}},
-		[]string{"ContractId", "ServiceCode", "State"},
-		[]string{"{{ .Id }}", "{{ .ServiceCode }}", "{{ .State }}"})
+		[]string{"ContractID", "ServiceCode", "State"},
+		[]string{"{{ .ID }}", "{{ .ServiceCode }}", "{{ .State }}"})
 	SetBaseHumanReadablePrinter([]api.Spec{&core.DelegationList{}},
-		[]string{"ZoneId", "ServiceCode", "Name", "Network", "LastRequestTime"},
-		[]string{"{{ .Id }}", "{{ .ServiceCode }}", "{{ .Name }}", "{{ .Network }}", "{{ .DelegationRequestedAt }}"})
+		[]string{"ZoneID", "ServiceCode", "Name", "Network", "LastRequestTime"},
+		[]string{"{{ .ID }}", "{{ .ServiceCode }}", "{{ .Name }}", "{{ .Network }}", "{{ .DelegationRequestedAt }}"})
 	SetBaseHumanReadablePrinter([]api.Spec{&core.Job{}},
-		[]string{"RequestId", "Status", "ErrorType", "ErrorMessage"},
-		[]string{"{{ .RequestId }}", "{{ .Status }}", "{{ .ErrorType }}", "{{ .ErrorMessage }}"})
+		[]string{"RequestID", "Status", "ErrorType", "ErrorMessage"},
+		[]string{"{{ .RequestID }}", "{{ .Status }}", "{{ .ErrorType }}", "{{ .ErrorMessage }}"})
 	SetBaseHumanReadablePrinter([]api.Spec{&core.Zone{}, &core.ZoneList{}},
-		[]string{"ZoneId", "ServiceCode", "Name", "State", "CommonConfigId"},
-		[]string{"{{ .Id }}", "{{ .ServiceCode }}", "{{ .Name }}", "{{ .State }}", "{{ .CommonConfigId }}"})
+		[]string{"ZoneID", "ServiceCode", "Name", "State", "CommonConfigID"},
+		[]string{"{{ .ID }}", "{{ .ServiceCode }}", "{{ .Name }}", "{{ .State }}", "{{ .CommonConfigID }}"})
 }

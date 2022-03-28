@@ -20,11 +20,11 @@ var _ = Describe("CommandResults", func() {
 		BeforeEach(func() {
 			s = &utils.CommandResults{
 				Items: []utils.CommandResult{{
-					RequestId: "A499DEC89409406F9150329553A9AC96",
+					RequestID: "A499DEC89409406F9150329553A9AC96",
 				}, {
-					RequestId: "B5D25B37EB164BCBAD0A595F867A06CC",
+					RequestID: "B5D25B37EB164BCBAD0A595F867A06CC",
 					Job: &core.Job{
-						RequestId:    "B5D25B37EB164BCBAD0A595F867A06CC",
+						RequestID:    "B5D25B37EB164BCBAD0A595F867A06CC",
 						Status:       core.JobStatusFailed,
 						ErrorType:    "hoge",
 						ErrorMessage: "error message",
@@ -35,7 +35,7 @@ var _ = Describe("CommandResults", func() {
 			headers = p.GetHeaders()
 		})
 		It("returns headers", func() {
-			Expect(headers).To(Equal([]interface{}{"RequestId", "Status", "ErrorType", "ErrorMessage"}))
+			Expect(headers).To(Equal([]interface{}{"RequestID", "Status", "ErrorType", "ErrorMessage"}))
 		})
 		When("async response", func() {
 			BeforeEach(func() {

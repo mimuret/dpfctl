@@ -8,14 +8,14 @@ import (
 
 func init() {
 	list := APISetSlice{}
-	zoneId := Param{Name: "ZoneId", Type: ParamTypeString, Required: true}
+	zoneID := Param{Name: "ZoneID", Type: ParamTypeString, Required: true}
 
 	// zones           current_records                 CurrentRecordList               List
 	list = append(list, &APISet{
 		Name:        "current_records",
 		Description: "current running records.",
 		Action: map[api.Action]API{
-			api.ActionList: {Object: &zones.CurrentRecordList{}, Params: Params{zoneId}},
+			api.ActionList: {Object: &zones.CurrentRecordList{}, Params: Params{zoneID}},
 		},
 	})
 
@@ -24,8 +24,8 @@ func init() {
 		Name:        "dnssec",
 		Description: "dnssec setting",
 		Action: map[api.Action]API{
-			api.ActionRead:   {Object: &zones.Dnssec{}, Params: Params{zoneId}},
-			api.ActionUpdate: {Object: &zones.Dnssec{}, Params: Params{zoneId}},
+			api.ActionRead:   {Object: &zones.Dnssec{}, Params: Params{zoneID}},
+			api.ActionUpdate: {Object: &zones.Dnssec{}, Params: Params{zoneID}},
 		},
 	})
 
@@ -34,7 +34,7 @@ func init() {
 		Name:        "ds_records",
 		Description: "get DS record",
 		Action: map[api.Action]API{
-			api.ActionRead: {Object: &zones.DsRecordList{}, Params: Params{zoneId}},
+			api.ActionRead: {Object: &zones.DsRecordList{}, Params: Params{zoneID}},
 		},
 	})
 
@@ -43,7 +43,7 @@ func init() {
 		Name:        "ksk_roll_over",
 		Description: "Running KSK roll over",
 		Action: map[api.Action]API{
-			api.ActionApply: {Object: &zones.DnssecKskRollover{}, Params: Params{zoneId}},
+			api.ActionApply: {Object: &zones.DnssecKskRollover{}, Params: Params{zoneID}},
 		},
 	})
 
@@ -52,7 +52,7 @@ func init() {
 		Name:        "managed_dns_servers",
 		Description: "get managed dns server",
 		Action: map[api.Action]API{
-			api.ActionList: {Object: &zones.ManagedDnsList{}, Params: Params{zoneId}},
+			api.ActionList: {Object: &zones.ManagedDnsList{}, Params: Params{zoneID}},
 		},
 	})
 
@@ -61,11 +61,11 @@ func init() {
 		Name:        "record_diffs",
 		Description: "records diff between running records and edit records.",
 		Action: map[api.Action]API{
-			api.ActionList: {Object: &zones.RecordDiffList{}, Params: Params{zoneId}},
+			api.ActionList: {Object: &zones.RecordDiffList{}, Params: Params{zoneID}},
 		},
 	})
 
-	recordId := Param{Name: "RecordId", Type: ParamTypeString, Required: true}
+	recordID := Param{Name: "RecordID", Type: ParamTypeString, Required: true}
 
 	// zones           records                         Record                          Create  Read    Update  Delete  Cancel
 	// zones           records                         RecordList                      List
@@ -73,11 +73,11 @@ func init() {
 		Name:        "records",
 		Description: "record",
 		Action: map[api.Action]API{
-			api.ActionList:   {Object: &zones.RecordList{}, Params: Params{zoneId}},
-			api.ActionCreate: {Object: &zones.Record{}, Params: Params{zoneId}},
-			api.ActionRead:   {Object: &zones.Record{}, Params: Params{zoneId, recordId}},
-			api.ActionUpdate: {Object: &zones.Record{}, Params: Params{zoneId, recordId}},
-			api.ActionDelete: {Object: &zones.Record{}, Params: Params{zoneId, recordId}},
+			api.ActionList:   {Object: &zones.RecordList{}, Params: Params{zoneID}},
+			api.ActionCreate: {Object: &zones.Record{}, Params: Params{zoneID}},
+			api.ActionRead:   {Object: &zones.Record{}, Params: Params{zoneID, recordID}},
+			api.ActionUpdate: {Object: &zones.Record{}, Params: Params{zoneID, recordID}},
+			api.ActionDelete: {Object: &zones.Record{}, Params: Params{zoneID, recordID}},
 		},
 	})
 
@@ -86,9 +86,9 @@ func init() {
 		Name:        "zone_default_ttl",
 		Description: "default ttl setting.",
 		Action: map[api.Action]API{
-			api.ActionRead:   {Object: &zones.DefaultTTL{}, Params: Params{zoneId}},
-			api.ActionUpdate: {Object: &zones.DefaultTTL{}, Params: Params{zoneId}},
-			api.ActionDelete: {Object: &zones.DefaultTTL{}, Params: Params{zoneId}},
+			api.ActionRead:   {Object: &zones.DefaultTTL{}, Params: Params{zoneID}},
+			api.ActionUpdate: {Object: &zones.DefaultTTL{}, Params: Params{zoneID}},
+			api.ActionDelete: {Object: &zones.DefaultTTL{}, Params: Params{zoneID}},
 		},
 	})
 
@@ -97,7 +97,7 @@ func init() {
 		Name:        "zone_default_ttl_diffs",
 		Description: "default ttl diff between running and edited.",
 		Action: map[api.Action]API{
-			api.ActionList: {Object: &zones.DefaultTTLDiffList{}, Params: Params{zoneId}},
+			api.ActionList: {Object: &zones.DefaultTTLDiffList{}, Params: Params{zoneID}},
 		},
 	})
 
@@ -106,7 +106,7 @@ func init() {
 		Name:        "zone_histories",
 		Description: "zone record histories.",
 		Action: map[api.Action]API{
-			api.ActionList: {Object: &zones.HistoryList{}, Params: Params{zoneId}},
+			api.ActionList: {Object: &zones.HistoryList{}, Params: Params{zoneID}},
 		},
 	})
 
@@ -115,7 +115,7 @@ func init() {
 		Name:        "zone_logs",
 		Description: "IIJ Managed DNS Service log.",
 		Action: map[api.Action]API{
-			api.ActionList: {Object: &zones.HistoryList{}, Params: Params{zoneId}},
+			api.ActionList: {Object: &zones.HistoryList{}, Params: Params{zoneID}},
 		},
 	})
 
@@ -124,8 +124,8 @@ func init() {
 		Name:        "zone_proxy",
 		Description: "IIJ Managed DNS Service log.",
 		Action: map[api.Action]API{
-			api.ActionRead:   {Object: &zones.ZoneProxy{}, Params: Params{zoneId}},
-			api.ActionUpdate: {Object: &zones.ZoneProxy{}, Params: Params{zoneId}},
+			api.ActionRead:   {Object: &zones.ZoneProxy{}, Params: Params{zoneID}},
+			api.ActionUpdate: {Object: &zones.ZoneProxy{}, Params: Params{zoneID}},
 		},
 	})
 
@@ -134,7 +134,7 @@ func init() {
 		Name:        "zone_proxy_health_check",
 		Description: "zone proxy health check information",
 		Action: map[api.Action]API{
-			api.ActionList: {Object: &zones.ZoneProxyHealthCheckList{}, Params: Params{zoneId}},
+			api.ActionList: {Object: &zones.ZoneProxyHealthCheckList{}, Params: Params{zoneID}},
 		},
 	})
 
@@ -143,7 +143,7 @@ func init() {
 		Name:        "zones_contract",
 		Description: "the contract belong to zone",
 		Action: map[api.Action]API{
-			api.ActionRead: {Object: &zones.Contract{}, Params: Params{zoneId}},
+			api.ActionRead: {Object: &zones.Contract{}, Params: Params{zoneID}},
 		},
 	})
 

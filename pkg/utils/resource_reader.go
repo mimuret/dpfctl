@@ -12,13 +12,15 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
+var DefaultFS = afero.NewOsFs()
+
 type ResourceReader struct {
 	fs afero.Fs
 }
 
 func NewResourceReader(fs afero.Fs) *ResourceReader {
 	if fs == nil {
-		fs = afero.NewOsFs()
+		fs = DefaultFS
 	}
 	return &ResourceReader{fs: fs}
 }

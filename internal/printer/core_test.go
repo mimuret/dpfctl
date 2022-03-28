@@ -20,7 +20,7 @@ var _ = Describe("core", func() {
 	Context("Contract", func() {
 		var (
 			s = &core.Contract{
-				Id:          "hogehoge",
+				ID:          "hogehoge",
 				ServiceCode: "dpf00001",
 				State:       types.StateBeforeStart,
 			}
@@ -31,7 +31,7 @@ var _ = Describe("core", func() {
 			row = p.GetRow(s)
 		})
 		It("returns headers", func() {
-			Expect(headers).To(Equal([]interface{}{"ContractId", "ServiceCode", "State"}))
+			Expect(headers).To(Equal([]interface{}{"ContractID", "ServiceCode", "State"}))
 		})
 		It("returns row", func() {
 			Expect(row).To(Equal([]interface{}{"hogehoge", "dpf00001", "BeforeStart"}))
@@ -42,7 +42,7 @@ var _ = Describe("core", func() {
 			s = &core.ContractList{
 				Items: []core.Contract{
 					{
-						Id:          "hogehoge",
+						ID:          "hogehoge",
 						ServiceCode: "dpf00001",
 						State:       types.StateRunning,
 					},
@@ -55,7 +55,7 @@ var _ = Describe("core", func() {
 			row = p.GetRow(s.Items[0])
 		})
 		It("returns headers", func() {
-			Expect(headers).To(Equal([]interface{}{"ContractId", "ServiceCode", "State"}))
+			Expect(headers).To(Equal([]interface{}{"ContractID", "ServiceCode", "State"}))
 		})
 		It("returns row", func() {
 			Expect(row).To(Equal([]interface{}{"hogehoge", "dpf00001", "Started"}))
@@ -67,7 +67,7 @@ var _ = Describe("core", func() {
 			s         = &core.DelegationList{
 				Items: []core.Delegation{
 					{
-						Id:                    "m1",
+						ID:                    "m1",
 						ServiceCode:           "dpm000001",
 						Name:                  "example.jp.",
 						Network:               "",
@@ -82,7 +82,7 @@ var _ = Describe("core", func() {
 			row = p.GetRow(s.Items[0])
 		})
 		It("returns headers", func() {
-			Expect(headers).To(Equal([]interface{}{"ZoneId", "ServiceCode", "Name", "Network", "LastRequestTime"}))
+			Expect(headers).To(Equal([]interface{}{"ZoneID", "ServiceCode", "Name", "Network", "LastRequestTime"}))
 		})
 		It("returns row", func() {
 			Expect(row).To(Equal([]interface{}{"m1", "dpm000001", "example.jp.", "", "2021-06-20 07:55:17.753 +0000 UTC"}))
@@ -91,7 +91,7 @@ var _ = Describe("core", func() {
 	Context("Job", func() {
 		var (
 			s = &core.Job{
-				RequestId:    "1ADC86BA65404664B8080904E88CF7B0",
+				RequestID:    "1ADC86BA65404664B8080904E88CF7B0",
 				Status:       core.JobStatusFailed,
 				ErrorType:    "hoge",
 				ErrorMessage: "error message",
@@ -103,7 +103,7 @@ var _ = Describe("core", func() {
 			row = p.GetRow(s)
 		})
 		It("returns headers", func() {
-			Expect(headers).To(Equal([]interface{}{"RequestId", "Status", "ErrorType", "ErrorMessage"}))
+			Expect(headers).To(Equal([]interface{}{"RequestID", "Status", "ErrorType", "ErrorMessage"}))
 		})
 		It("returns row", func() {
 			Expect(row).To(Equal([]interface{}{"1ADC86BA65404664B8080904E88CF7B0", "FAILED", "hoge", "error message"}))
@@ -112,8 +112,8 @@ var _ = Describe("core", func() {
 	Context("Zone", func() {
 		var (
 			s = &core.Zone{
-				Id:               "m1",
-				CommonConfigId:   1,
+				ID:               "m1",
+				CommonConfigID:   1,
 				ServiceCode:      "dpm0000001",
 				State:            types.StateBeforeStart,
 				Favorite:         types.FavoriteHighPriority,
@@ -129,7 +129,7 @@ var _ = Describe("core", func() {
 			row = p.GetRow(s)
 		})
 		It("returns headers", func() {
-			Expect(headers).To(Equal([]interface{}{"ZoneId", "ServiceCode", "Name", "State", "CommonConfigId"}))
+			Expect(headers).To(Equal([]interface{}{"ZoneID", "ServiceCode", "Name", "State", "CommonConfigID"}))
 		})
 		It("returns row", func() {
 			Expect(row).To(Equal([]interface{}{"m1", "dpm0000001", "example.jp.", "BeforeStart", "1"}))
@@ -140,8 +140,8 @@ var _ = Describe("core", func() {
 			s = &core.ZoneList{
 				Items: []core.Zone{
 					{
-						Id:               "m1",
-						CommonConfigId:   1,
+						ID:               "m1",
+						CommonConfigID:   1,
 						ServiceCode:      "dpm0000001",
 						State:            types.StateBeforeStart,
 						Favorite:         types.FavoriteHighPriority,
@@ -159,7 +159,7 @@ var _ = Describe("core", func() {
 			row = p.GetRow(s.Items[0])
 		})
 		It("returns headers", func() {
-			Expect(headers).To(Equal([]interface{}{"ZoneId", "ServiceCode", "Name", "State", "CommonConfigId"}))
+			Expect(headers).To(Equal([]interface{}{"ZoneID", "ServiceCode", "Name", "State", "CommonConfigID"}))
 		})
 		It("returns row", func() {
 			Expect(row).To(Equal([]interface{}{"m1", "dpm0000001", "example.jp.", "BeforeStart", "1"}))

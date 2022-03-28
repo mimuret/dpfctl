@@ -13,7 +13,7 @@ import (
 
 func init() {
 	list := APISetSlice{}
-	contractId := Param{Name: "ContractId", Type: ParamTypeString, Required: true}
+	contractID := Param{Name: "ContractID", Type: ParamTypeString, Required: true}
 	// 		core            contracts                       Contract                        Read    Update
 	//		core            contracts                       ContractList                    List
 	list = append(list, &APISet{
@@ -21,8 +21,8 @@ func init() {
 		Description: "IIJ DNS Platform Service contract information",
 		Action: map[api.Action]API{
 			api.ActionList:   {Object: &core.ContractList{}},
-			api.ActionRead:   {Object: &core.Contract{}, Params: Params{contractId}},
-			api.ActionUpdate: {Object: &core.Contract{}, Params: Params{contractId}},
+			api.ActionRead:   {Object: &core.Contract{}, Params: Params{contractID}},
+			api.ActionUpdate: {Object: &core.Contract{}, Params: Params{contractID}},
 		},
 	})
 	// core            delegations                     DelegationList                  List
@@ -45,7 +45,7 @@ func init() {
 					if !ok {
 						return fmt.Errorf("why this code running")
 					}
-					apply.ZoneIds = append(apply.ZoneIds, args...)
+					apply.ZoneIDs = append(apply.ZoneIDs, args...)
 					return nil
 				},
 				Params: Params{{Name: "servicecode", Type: ParamTypeArrayString, Required: true}},
@@ -53,17 +53,17 @@ func init() {
 		},
 	})
 
-	requestId := Param{Name: "RequestId", Type: ParamTypeString, Required: true}
+	requestID := Param{Name: "RequestID", Type: ParamTypeString, Required: true}
 	// core            jobs                            Job                             Read
 	list = append(list, &APISet{
 		Name:        "jobs",
 		Description: "Asynchronous responses can be obtained during job processing. You can get it only once after the job is finished.",
 		Action: map[api.Action]API{
-			api.ActionRead: {Object: &core.Job{}, Params: Params{requestId}},
+			api.ActionRead: {Object: &core.Job{}, Params: Params{requestID}},
 		},
 	})
 
-	zoneId := Param{Name: "ZoneId", Type: ParamTypeString, Required: true}
+	zoneID := Param{Name: "ZoneID", Type: ParamTypeString, Required: true}
 	// core            zones                           ZoneList                        List
 	// core            zones                           Zone                            Read    Update  Cancel
 	// core            zones_apply                     ZoneApply                       Apply
@@ -72,10 +72,10 @@ func init() {
 		Description: "IIJ Managed DNS Service information",
 		Action: map[api.Action]API{
 			api.ActionList:   {Object: &core.ZoneList{}},
-			api.ActionRead:   {Object: &core.Zone{}, Params: Params{zoneId}},
-			api.ActionUpdate: {Object: &core.Zone{}, Params: Params{zoneId}},
-			api.ActionCancel: {Object: &zones.ZoneApply{}, Params: Params{zoneId}},
-			api.ActionApply:  {Object: &zones.ZoneApply{}, Params: Params{zoneId}},
+			api.ActionRead:   {Object: &core.Zone{}, Params: Params{zoneID}},
+			api.ActionUpdate: {Object: &core.Zone{}, Params: Params{zoneID}},
+			api.ActionCancel: {Object: &zones.ZoneApply{}, Params: Params{zoneID}},
+			api.ActionApply:  {Object: &zones.ZoneApply{}, Params: Params{zoneID}},
 		},
 	})
 	SetGroup("core", list)

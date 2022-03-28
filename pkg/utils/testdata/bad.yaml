@@ -2,6 +2,6 @@
 kind: TestSpec
 apiVersion: test.api.dns-platform.jp/v1
 resource:
-  Id: "id1"
+  ID: "id1"
   Name: "apple"
   Number: {{18446744073709551615}}

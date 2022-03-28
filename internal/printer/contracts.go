@@ -8,11 +8,11 @@ import (
 
 func init() {
 	SetBaseHumanReadablePrinter([]api.Spec{&contracts.CommonConfig{}, &contracts.CommonConfigList{}},
-		[]string{"Id", "Name", "ManagedDNSEnabled", "Default"},
-		[]string{"{{ .Id }}", "{{ .Name }}", "{{ .ManagedDNSEnabled }}", "{{ .Default }}"})
+		[]string{"ID", "Name", "ManagedDNSEnabled", "Default"},
+		[]string{"{{ .ID }}", "{{ .Name }}", "{{ .ManagedDNSEnabled }}", "{{ .Default }}"})
 	SetBaseHumanReadablePrinter([]api.Spec{&contracts.LogList{}},
-		[]string{"RequestId", "Time", "Status"},
-		[]string{"{{ .RequestId }}", "{{ .Time }}", "{{ .Status }}"})
+		[]string{"RequestID", "Time", "Status"},
+		[]string{"{{ .RequestID }}", "{{ .Time }}", "{{ .Status }}"})
 	SetBaseHumanReadablePrinter([]api.Spec{&contracts.ContractPartnerList{}},
 		[]string{"ServiceCode"},
 		[]string{"{{ .ServiceCode }}"})
@@ -20,9 +20,9 @@ func init() {
 		[]string{"ServiceCode", "Name", "LastMonth", "LastQps"},
 		[]string{"{{ .ServiceCode }}", "{{ .Name }}", "{{ $last := .Values | last}}{{ $last.Month }}", "{{ $last := .Values | last}}{{ $last.Qps }}"})
 	SetBaseHumanReadablePrinter([]api.Spec{&contracts.ContractZoneList{}},
-		[]string{"ZoneId", "ServiceCode", "Name", "State", "CommonConfigId"},
-		[]string{"{{ .Id }}", "{{ .ServiceCode }}", "{{ .Name }}", "{{ .State }}", "{{ .CommonConfigId }}"})
+		[]string{"ZoneID", "ServiceCode", "Name", "State", "CommonConfigID"},
+		[]string{"{{ .ID }}", "{{ .ServiceCode }}", "{{ .Name }}", "{{ .State }}", "{{ .CommonConfigID }}"})
 	SetBaseHumanReadablePrinter([]api.Spec{&contracts.TsigList{}, &contracts.Tsig{}},
-		[]string{"Id", "Name", "Algorithm"},
-		[]string{"{{ .CommonConfigId }}", "{{ .Id }}", "{{ .Name }}", "{{ .Algorithm }}"})
+		[]string{"ID", "Name", "Algorithm"},
+		[]string{"{{ .CommonConfigID }}", "{{ .ID }}", "{{ .Name }}", "{{ .Algorithm }}"})
 }

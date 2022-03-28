@@ -8,12 +8,12 @@ import (
 
 func init() {
 	SetBaseHumanReadablePrinter([]api.Spec{&common_configs.CcPrimary{}, &common_configs.CcPrimaryList{}},
-		[]string{"Id", "Address", "TsigId", "Enabled"},
-		[]string{"{{ .Id }}", "{{ .Address }}", "{{ .TsigId }}", "{{ .Enabled }}"})
+		[]string{"ID", "Address", "TsigID", "Enabled"},
+		[]string{"{{ .ID }}", "{{ .Address }}", "{{ .TsigID }}", "{{ .Enabled }}"})
 	SetBaseHumanReadablePrinter([]api.Spec{&common_configs.CcSecNotifiedServer{}, &common_configs.CcSecNotifiedServerList{}},
-		[]string{"Id", "Address", "TsigId"},
-		[]string{"{{ .Id }}", "{{ .Address }}", "{{ .TsigId }}"})
+		[]string{"ID", "Address", "TsigID"},
+		[]string{"{{ .ID }}", "{{ .Address }}", "{{ .TsigID }}"})
 	SetBaseHumanReadablePrinter([]api.Spec{&common_configs.CcSecTransferAcl{}, &common_configs.CcSecTransferAclList{}},
-		[]string{"Id", "Network", "TsigId"},
-		[]string{"{{ .Id }}", "{{ .Network }}", "{{ .TsigId }}"})
+		[]string{"ID", "Network", "TsigID"},
+		[]string{"{{ .ID }}", "{{ .Network }}", "{{ .TsigID }}"})
 }

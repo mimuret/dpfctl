@@ -16,6 +16,8 @@ limitations under the License.
 package cmd
 
 import (
+	"context"
+
 	"github.com/mimuret/dpfctl/pkg/utils"
 	"github.com/mimuret/golang-iij-dpf/pkg/api"
 	"github.com/mimuret/golang-iij-dpf/pkg/apis"
@@ -25,7 +27,7 @@ import (
 func newUpdateCmd() *cobra.Command {
 	cmd := utils.NewCommand("update -f filename", api.ActionUpdate, func(cmd *cobra.Command, cl api.ClientInterface, args []string, resources []apis.Spec) error {
 		return commonChangeRunFunc(func(s apis.Spec) (string, error) {
-			return cl.Update(s, nil)
+			return cl.Update(context.Background(), s, nil)
 		}, cmd, cl, args, resources)
 	})
 	cmd.Args = cobra.MinimumNArgs(0)

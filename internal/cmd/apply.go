@@ -16,6 +16,7 @@ limitations under the License.
 package cmd
 
 import (
+	"context"
 	"fmt"
 	"os"
 
@@ -83,14 +84,14 @@ func runApply(cmd *cobra.Command, args []string) error {
 			if viper.GetBool("dry-run") {
 				fmt.Printf("[DryRun] update resource %v", apisSpec)
 			} else {
-				results.Add(cl.Update(apisSpec, nil))
+				results.Add(cl.Update(context.Background(), apisSpec, nil))
 			}
 		}
 		if actions[i] == api.ActionUpdate {
 			if viper.GetBool("dry-run") {
 				fmt.Printf("[DryRun] create resource %v", apisSpec)
 			} else {
-				results.Add(cl.Create(apisSpec, nil))
+				results.Add(cl.Create(context.Background(), apisSpec, nil))
 			}
 		}
 	}
@@ -115,7 +116,7 @@ func prepare(cl api.ClientInterface, apisSpec apis.Spec) (api.Action, error) {
 	if !create && !update {
 		return "", fmt.Errorf("this spec is not support create and update")
 	}
-	_, err = cl.Read(apisSpec)
+	_, err = cl.Read(context.Background(), apisSpec)
 	if api.IsNotFound(err) {
 		exist = true
 	}

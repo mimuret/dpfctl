@@ -159,6 +159,8 @@ func ChangeCmd(cmd *cobra.Command) {
 	viper.BindPFlag("wait", cmd.PersistentFlags().Lookup("wait"))
 	cmd.PersistentFlags().DurationP("wait-timeout", "", time.Minute, "wait async response timeout")
 	viper.BindPFlag("wait-timeout", cmd.PersistentFlags().Lookup("wait-timeout"))
+	cmd.PersistentFlags().DurationP("request-timeout", "", 0, "request timeout")
+	viper.BindPFlag("request-timeout", cmd.PersistentFlags().Lookup("request-timeout"))
 
 	cmd.PersistentFlags().StringP("filename", "f", "", "resource data file")
 	cmd.MarkPersistentFlagFilename("filename", "yaml", "yml", "json")

@@ -23,9 +23,9 @@ var _ = Describe("zones", func() {
 	BeforeEach(func() {
 		s1 = zones.Record{
 			AttributeMeta: zones.AttributeMeta{
-				ZoneId: "m1",
+				ZoneID: "m1",
 			},
-			Id:     "r1",
+			ID:     "r1",
 			Name:   "www.example.jp.",
 			TTL:    30,
 			RRType: zones.TypeA,
@@ -39,9 +39,9 @@ var _ = Describe("zones", func() {
 		}
 		s2 = zones.Record{
 			AttributeMeta: zones.AttributeMeta{
-				ZoneId: "m1",
+				ZoneID: "m1",
 			},
-			Id:     "r2",
+			ID:     "r2",
 			Name:   "www.example.jp.",
 			TTL:    30,
 			RRType: zones.TypeAAAA,
@@ -64,7 +64,7 @@ var _ = Describe("zones", func() {
 			row = p.GetRow(s.Items[0])
 		})
 		It("returns headers", func() {
-			Expect(headers).To(Equal([]interface{}{"Id", "Name", "TTL", "RRtype", "RData"}))
+			Expect(headers).To(Equal([]interface{}{"ID", "Name", "TTL", "RRtype", "RData"}))
 		})
 		It("returns row", func() {
 			Expect(row).To(Equal([]interface{}{"r1", "www.example.jp.", "30", "A", "192.168.1.1,192.168.1.2"}))
@@ -74,7 +74,7 @@ var _ = Describe("zones", func() {
 		BeforeEach(func() {
 			s := &zones.Dnssec{
 				AttributeMeta: zones.AttributeMeta{
-					ZoneId: "m1",
+					ZoneID: "m1",
 				},
 				Enabled: types.Enabled,
 				State:   zones.DnssecStateEnabling,
@@ -142,7 +142,7 @@ var _ = Describe("zones", func() {
 			row = p.GetRow(&s1)
 		})
 		It("returns headers", func() {
-			Expect(headers).To(Equal([]interface{}{"Id", "Name", "TTL", "RRtype", "RData", "State", "Operator"}))
+			Expect(headers).To(Equal([]interface{}{"ID", "Name", "TTL", "RRtype", "RData", "State", "Operator"}))
 		})
 		It("returns row", func() {
 			Expect(row).To(Equal([]interface{}{"r1", "www.example.jp.", "30", "A", "192.168.1.1,192.168.1.2", "Applied", "user1"}))
@@ -158,7 +158,7 @@ var _ = Describe("zones", func() {
 			row = p.GetRow(s.Items[0])
 		})
 		It("returns headers", func() {
-			Expect(headers).To(Equal([]interface{}{"Id", "Name", "TTL", "RRtype", "RData", "State", "Operator"}))
+			Expect(headers).To(Equal([]interface{}{"ID", "Name", "TTL", "RRtype", "RData", "State", "Operator"}))
 		})
 		It("returns row", func() {
 			Expect(row).To(Equal([]interface{}{"r1", "www.example.jp.", "30", "A", "192.168.1.1,192.168.1.2", "Applied", "user1"}))
@@ -168,7 +168,7 @@ var _ = Describe("zones", func() {
 		var (
 			s = &zones.DefaultTTL{
 				AttributeMeta: zones.AttributeMeta{
-					ZoneId: "m1",
+					ZoneID: "m1",
 				},
 				Value:    3600,
 				State:    zones.DefaultTTLStateApplied,
@@ -193,13 +193,13 @@ var _ = Describe("zones", func() {
 			s         = &zones.HistoryList{
 				Items: []zones.History{
 					{
-						Id:          1,
+						ID:          1,
 						CommittedAt: atTime,
 						Description: "commit 1",
 						Operator:    "user1",
 					},
 					{
-						Id:          2,
+						ID:          2,
 						CommittedAt: atTime,
 						Description: "commit 2",
 						Operator:    "user2",
@@ -213,7 +213,7 @@ var _ = Describe("zones", func() {
 			row = p.GetRow(s.Items[0])
 		})
 		It("returns headers", func() {
-			Expect(headers).To(Equal([]interface{}{"Id", "CommittedAt", "Operator", "Description"}))
+			Expect(headers).To(Equal([]interface{}{"ID", "CommittedAt", "Operator", "Description"}))
 		})
 		It("returns row", func() {
 			Expect(row).To(Equal([]interface{}{"1", "2021-06-20 10:23:51.071 +0000 UTC", "user1", "commit 1"}))
@@ -231,7 +231,7 @@ var _ = Describe("zones", func() {
 						Operation: "add_cc_primary",
 						Target:    "1",
 						Status:    core.LogStatusStart,
-						RequestId: "C694DCE2D20F46E5A8DCE9EA43042B06",
+						RequestID: "C694DCE2D20F46E5A8DCE9EA43042B06",
 					}, {
 						Time:      atTime,
 						LogType:   "common_config",
@@ -239,7 +239,7 @@ var _ = Describe("zones", func() {
 						Operation: "create_tsig",
 						Target:    "2",
 						Status:    core.LogStatusSuccess,
-						RequestId: "383C5E4F7968420AAE67A1636CF80497",
+						RequestID: "383C5E4F7968420AAE67A1636CF80497",
 					},
 				},
 			}
@@ -250,7 +250,7 @@ var _ = Describe("zones", func() {
 			row = p.GetRow(s.Items[0])
 		})
 		It("returns headers", func() {
-			Expect(headers).To(Equal([]interface{}{"RequestId", "Time", "Status"}))
+			Expect(headers).To(Equal([]interface{}{"RequestID", "Time", "Status"}))
 		})
 		It("returns row", func() {
 			Expect(row).To(Equal([]interface{}{"C694DCE2D20F46E5A8DCE9EA43042B06", "2021-06-20 07:55:17.753 +0000 UTC", "start"}))
@@ -260,7 +260,7 @@ var _ = Describe("zones", func() {
 		var (
 			s = &zones.ZoneProxy{
 				AttributeMeta: zones.AttributeMeta{
-					ZoneId: "m1",
+					ZoneID: "m1",
 				},
 				Enabled: types.Enabled,
 			}
@@ -306,7 +306,7 @@ var _ = Describe("zones", func() {
 		var (
 			s = &zones.Contract{
 				Contract: core.Contract{
-					Id:          "hogehoge",
+					ID:          "hogehoge",
 					ServiceCode: "dpf00001",
 					State:       types.StateBeforeStart,
 				},
@@ -318,7 +318,7 @@ var _ = Describe("zones", func() {
 			row = p.GetRow(s)
 		})
 		It("returns headers", func() {
-			Expect(headers).To(Equal([]interface{}{"ContractId", "ServiceCode", "State"}))
+			Expect(headers).To(Equal([]interface{}{"ContractID", "ServiceCode", "State"}))
 		})
 		It("returns row", func() {
 			Expect(row).To(Equal([]interface{}{"hogehoge", "dpf00001", "BeforeStart"}))

@@ -7,28 +7,12 @@ import (
 
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	"github.com/spf13/afero"
 
 	"github.com/mimuret/dpfctl/pkg/utils"
 	"github.com/mimuret/golang-iij-dpf/pkg/apis"
 	"github.com/mimuret/golang-iij-dpf/pkg/testtool"
 	_ "github.com/mimuret/golang-iij-dpf/pkg/testtool"
 )
-
-//go:embed testdata/single-doc.yaml
-var singleYamlDoc []byte
-
-//go:embed testdata/multi-doc.yaml
-var multiYamlDoc []byte
-
-//go:embed testdata/single-doc.json
-var jsonDoc []byte
-
-//go:embed testdata/bad.yaml
-var badYamlDoc []byte
-
-//go:embed testdata/bad-schema.yaml
-var badSchemaDoc []byte
 
 var _ = Describe("ResourceReader", func() {
 	var (
@@ -40,10 +24,10 @@ var _ = Describe("ResourceReader", func() {
 		res            []apis.Spec
 	)
 	BeforeEach(func() {
-		s1 = &testtool.TestSpec{Id: "id1", Name: "apple", Number: 10}
-		s2 = &testtool.TestSpec{Id: "id2", Name: "orange", Number: 20}
-		s3 = &testtool.TestSpec{Id: "id3", Name: "pen", Number: 40}
-		s4 = &testtool.TestSpec{Id: "id10", Name: "green", Number: 999}
+		s1 = &testtool.TestSpec{ID: "id1", Name: "apple", Number: 10}
+		s2 = &testtool.TestSpec{ID: "id2", Name: "orange", Number: 20}
+		s3 = &testtool.TestSpec{ID: "id3", Name: "pen", Number: 40}
+		s4 = &testtool.TestSpec{ID: "id10", Name: "green", Number: 999}
 		list = &testtool.TestSpecList{Items: []testtool.TestSpec{*s1, *s2, *s3}}
 		reader = utils.NewResourceReader(nil)
 	})
@@ -158,14 +142,7 @@ var _ = Describe("ResourceReader", func() {
 	})
 	Context("GetResources", func() {
 		BeforeEach(func() {
-			fs := afero.NewMemMapFs()
-			fs.MkdirAll("testdata", 0755)
-			afero.WriteFile(fs, "testdata/bad-schema.yaml", badYamlDoc, 0644)
-			afero.WriteFile(fs, "testdata/bad.yaml", badYamlDoc, 0644)
-			afero.WriteFile(fs, "testdata/multi-doc.yaml", multiYamlDoc, 0644)
-			afero.WriteFile(fs, "testdata/single-doc.yaml", singleYamlDoc, 0644)
-			afero.WriteFile(fs, "testdata/single-doc.json", jsonDoc, 0644)
-			reader = utils.NewResourceReader(fs)
+			reader = utils.NewResourceReader(nil)
 		})
 		When("file not exist", func() {
 			BeforeEach(func() {
