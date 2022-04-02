@@ -18,7 +18,7 @@ func init() {
 	//		core            contracts                       ContractList                    List
 	list = append(list, &APISet{
 		Name:        "contracts",
-		Description: "IIJ DNS Platform Service contract information",
+		Description: "IIJ DNS Platform Service information.",
 		Action: map[api.Action]API{
 			api.ActionList:   {Object: &core.ContractList{}},
 			api.ActionRead:   {Object: &core.Contract{}, Params: Params{contractID}},
@@ -28,7 +28,7 @@ func init() {
 	// core            delegations                     DelegationList                  List
 	list = append(list, &APISet{
 		Name:        "delegations",
-		Description: "get domain name management contract and Line contract",
+		Description: "Get domain name management contract and Line contract.",
 		Action: map[api.Action]API{
 			api.ActionList: {Object: &core.DelegationList{}},
 		},
@@ -36,7 +36,7 @@ func init() {
 	// core            delegations_request             DelegationApply                 Apply
 	list = append(list, &APISet{
 		Name:        "delegations_request",
-		Description: "update name server",
+		Description: "Update name server.",
 		Action: map[api.Action]API{
 			api.ActionApply: {
 				Object: &core.DelegationApply{},
@@ -57,7 +57,7 @@ func init() {
 	// core            jobs                            Job                             Read
 	list = append(list, &APISet{
 		Name:        "jobs",
-		Description: "Asynchronous responses can be obtained during job processing. You can get it only once after the job is finished.",
+		Description: "Asynchronous responses can be obtained during job processing.",
 		Action: map[api.Action]API{
 			api.ActionRead: {Object: &core.Job{}, Params: Params{requestID}},
 		},

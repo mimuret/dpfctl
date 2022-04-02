@@ -13,7 +13,7 @@ func init() {
 	// zones           current_records                 CurrentRecordList               List
 	list = append(list, &APISet{
 		Name:        "current_records",
-		Description: "current running records.",
+		Description: "A list of current running records.",
 		Action: map[api.Action]API{
 			api.ActionList: {Object: &zones.CurrentRecordList{}, Params: Params{zoneID}},
 		},
@@ -22,7 +22,7 @@ func init() {
 	// zones           dnssec                          Dnssec                          Read    Update
 	list = append(list, &APISet{
 		Name:        "dnssec",
-		Description: "dnssec setting",
+		Description: "DNSSEC setting",
 		Action: map[api.Action]API{
 			api.ActionRead:   {Object: &zones.Dnssec{}, Params: Params{zoneID}},
 			api.ActionUpdate: {Object: &zones.Dnssec{}, Params: Params{zoneID}},
@@ -32,7 +32,7 @@ func init() {
 	// zones           ds_records                      DsRecordList                    List
 	list = append(list, &APISet{
 		Name:        "ds_records",
-		Description: "get DS record",
+		Description: "DS records information",
 		Action: map[api.Action]API{
 			api.ActionRead: {Object: &zones.DsRecordList{}, Params: Params{zoneID}},
 		},
@@ -41,7 +41,7 @@ func init() {
 	// zones           ksk_roll_over                   DnssecKskRollover               Apply
 	list = append(list, &APISet{
 		Name:        "ksk_roll_over",
-		Description: "Running KSK roll over",
+		Description: "KSK rollover",
 		Action: map[api.Action]API{
 			api.ActionApply: {Object: &zones.DnssecKskRollover{}, Params: Params{zoneID}},
 		},
@@ -50,7 +50,7 @@ func init() {
 	// zones           managed_dns_servers             ManagedDnsList                  List
 	list = append(list, &APISet{
 		Name:        "managed_dns_servers",
-		Description: "get managed dns server",
+		Description: "Managed DNS server",
 		Action: map[api.Action]API{
 			api.ActionList: {Object: &zones.ManagedDnsList{}, Params: Params{zoneID}},
 		},
@@ -59,7 +59,7 @@ func init() {
 	// zones           record_diffs                    RecordDiffList                  List
 	list = append(list, &APISet{
 		Name:        "record_diffs",
-		Description: "records diff between running records and edit records.",
+		Description: "records diff between running records and editing records.",
 		Action: map[api.Action]API{
 			api.ActionList: {Object: &zones.RecordDiffList{}, Params: Params{zoneID}},
 		},
@@ -71,7 +71,7 @@ func init() {
 	// zones           records                         RecordList                      List
 	list = append(list, &APISet{
 		Name:        "records",
-		Description: "record",
+		Description: "A list of editing records.",
 		Action: map[api.Action]API{
 			api.ActionList:   {Object: &zones.RecordList{}, Params: Params{zoneID}},
 			api.ActionCreate: {Object: &zones.Record{}, Params: Params{zoneID}},
@@ -84,7 +84,7 @@ func init() {
 	// zones           zone_default_ttl                DefaultTTL                      Read    Update  Cancel
 	list = append(list, &APISet{
 		Name:        "zone_default_ttl",
-		Description: "default ttl setting.",
+		Description: "Default TTL setting.",
 		Action: map[api.Action]API{
 			api.ActionRead:   {Object: &zones.DefaultTTL{}, Params: Params{zoneID}},
 			api.ActionUpdate: {Object: &zones.DefaultTTL{}, Params: Params{zoneID}},
@@ -95,7 +95,7 @@ func init() {
 	// zones           zone_default_ttl_diffs          DefaultTTLDiffList              List
 	list = append(list, &APISet{
 		Name:        "zone_default_ttl_diffs",
-		Description: "default ttl diff between running and edited.",
+		Description: "Default TTL diff between running and editing.",
 		Action: map[api.Action]API{
 			api.ActionList: {Object: &zones.DefaultTTLDiffList{}, Params: Params{zoneID}},
 		},
@@ -104,7 +104,7 @@ func init() {
 	// zones           zone_histories                  HistoryList                     List
 	list = append(list, &APISet{
 		Name:        "zone_histories",
-		Description: "zone record histories.",
+		Description: "History of zone committed.",
 		Action: map[api.Action]API{
 			api.ActionList: {Object: &zones.HistoryList{}, Params: Params{zoneID}},
 		},
@@ -122,7 +122,7 @@ func init() {
 	// zones           zone_proxy                      ZoneProxy                       Read    Update
 	list = append(list, &APISet{
 		Name:        "zone_proxy",
-		Description: "IIJ Managed DNS Service log.",
+		Description: "Zone proxy mode setting.",
 		Action: map[api.Action]API{
 			api.ActionRead:   {Object: &zones.ZoneProxy{}, Params: Params{zoneID}},
 			api.ActionUpdate: {Object: &zones.ZoneProxy{}, Params: Params{zoneID}},
@@ -132,7 +132,7 @@ func init() {
 	// zones           zone_proxy_health_check         ZoneProxyHealthCheckList        List
 	list = append(list, &APISet{
 		Name:        "zone_proxy_health_check",
-		Description: "zone proxy health check information",
+		Description: "Health check information for primary servers.",
 		Action: map[api.Action]API{
 			api.ActionList: {Object: &zones.ZoneProxyHealthCheckList{}, Params: Params{zoneID}},
 		},
@@ -141,7 +141,7 @@ func init() {
 	// zones           zones_contract                  Contract                        Read
 	list = append(list, &APISet{
 		Name:        "zones_contract",
-		Description: "the contract belong to zone",
+		Description: "The contract belongs to the zone.",
 		Action: map[api.Action]API{
 			api.ActionRead: {Object: &zones.Contract{}, Params: Params{zoneID}},
 		},

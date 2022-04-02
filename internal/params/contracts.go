@@ -26,7 +26,7 @@ func init() {
 	// contracts       common_configs_default          CommonConfigDefault             Apply
 	list = append(list, &APISet{
 		Name:        "common_configs_default",
-		Description: "change new contract initial common_config",
+		Description: "Common config setting an initial value for IIJ Managed DNS Service.",
 		Action: map[api.Action]API{
 			api.ActionApply: {Object: &contracts.CommonConfigDefault{}, Params: Params{contractID, commonConfigID}},
 		},
@@ -35,7 +35,7 @@ func init() {
 	// contracts       common_configs_managed_dns      CommonConfigManagedDns          Apply
 	list = append(list, &APISet{
 		Name:        "common_configs_managed_dns",
-		Description: "managed dns function setting that is part of common config.",
+		Description: "Managed DNS Server setting (advanced configuration.",
 		Action: map[api.Action]API{
 			api.ActionApply: {Object: &contracts.CommonConfigManagedDns{}, Params: Params{contractID, commonConfigID}},
 		},
@@ -44,7 +44,7 @@ func init() {
 	// contracts       contract_logs                   LogList                         List
 	list = append(list, &APISet{
 		Name:        "contract_logs",
-		Description: "IIJ DNS Platform Service log.",
+		Description: "IIJ DNS Platform Service operation log.",
 		Action: map[api.Action]API{
 			api.ActionList: {Object: &contracts.LogList{}, Params: Params{contractID}},
 		},
@@ -53,7 +53,7 @@ func init() {
 	// contracts       contract_partners               CommonConfigList                List
 	list = append(list, &APISet{
 		Name:        "contract_partners",
-		Description: "list of linked services.",
+		Description: "List of linked services.",
 		Action: map[api.Action]API{
 			api.ActionList: {Object: &contracts.ContractPartnerList{}, Params: Params{contractID}},
 		},
@@ -62,7 +62,7 @@ func init() {
 	// contracts       contract_qps                    QpsHistoryList                  List
 	list = append(list, &APISet{
 		Name:        "contract_qps",
-		Description: "query per sec information.",
+		Description: "QPS information.",
 		Action: map[api.Action]API{
 			api.ActionList: {Object: &contracts.QpsHistoryList{}, Params: Params{contractID}},
 		},
@@ -71,7 +71,7 @@ func init() {
 	// contracts       contract_zone                   ContractZoneList                List
 	list = append(list, &APISet{
 		Name:        "contract_zone",
-		Description: " list of zones belong to contract",
+		Description: "A list of common configs belongs to contract",
 		Action: map[api.Action]API{
 			api.ActionList: {Object: &contracts.ContractZoneList{}, Params: Params{contractID}},
 		},
@@ -81,7 +81,7 @@ func init() {
 	// contracts       contract_zone_common_configs    ContractZoneCommonConfig        Apply
 	list = append(list, &APISet{
 		Name:        "contract_zone_common_configs",
-		Description: "managed dns function setting that is part of common config.",
+		Description: "Settings common config to IIJ Managed DNS.",
 		Action: map[api.Action]API{
 			api.ActionApply: {Object: &contracts.ContractZoneCommonConfig{}, Params: Params{contractID, commonConfigID, zoneIDs}},
 		},
@@ -93,7 +93,7 @@ func init() {
 	// contracts       tsigs                           TsigList                        List
 	list = append(list, &APISet{
 		Name:        "tsigs",
-		Description: "TSIG setting.",
+		Description: "TSIG settings.",
 		Action: map[api.Action]API{
 			api.ActionList:   {Object: &contracts.TsigList{}, Params: Params{contractID}},
 			api.ActionCreate: {Object: &contracts.Tsig{}, Params: Params{contractID}},
@@ -106,7 +106,7 @@ func init() {
 	// contracts       tsigs_common_configs            TsigCommonConfigList            List
 	list = append(list, &APISet{
 		Name:        "tsigs_common_configs",
-		Description: " common_configs of using to TSIG",
+		Description: "A list of common configs belongs to TSIG.",
 		Action: map[api.Action]API{
 			api.ActionList: {Object: &contracts.TsigCommonConfigList{}, Params: Params{contractID, tsigID}},
 		},

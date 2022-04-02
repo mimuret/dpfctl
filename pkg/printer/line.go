@@ -8,8 +8,8 @@ import (
 )
 
 type LinePrinter struct {
-	Noheaders bool
-	Printer   HumanReadablePrinter
+	NoHeader bool
+	Printer  HumanReadablePrinter
 }
 
 func NewGoTemplatePrinter(templateStr string) (*LinePrinter, error) {
@@ -24,8 +24,8 @@ func NewLinePrinter() *LinePrinter {
 	return &LinePrinter{}
 }
 
-func (p *LinePrinter) SetNoHeaders(s bool) {
-	p.Noheaders = s
+func (p *LinePrinter) SetNoHeader(s bool) {
+	p.NoHeader = s
 }
 
 func (p *LinePrinter) Print(w io.Writer, obj api.Spec) error {
@@ -33,7 +33,7 @@ func (p *LinePrinter) Print(w io.Writer, obj api.Spec) error {
 	if p.Printer == nil {
 		p.Printer = GetHumanReadablePrinter(obj)
 	}
-	if !p.Noheaders {
+	if !p.NoHeader {
 		table.AddRow(p.Printer.GetHeaders()...)
 	}
 	if l, ok := obj.(api.ListSpec); ok {

@@ -14,7 +14,7 @@ func init() {
 	// common_configs  cc_primaries                    CcPrimaryList                   List
 	list = append(list, &APISet{
 		Name:        "cc_primaries",
-		Description: "Primary DNS settings, using by zone proxy (DNS Secondary) mode.",
+		Description: "Primary DNS settings for zone proxy.",
 		Action: map[api.Action]API{
 			api.ActionList:   {Object: &common_configs.CcPrimaryList{}, Params: Params{commonConfigID}},
 			api.ActionCreate: {Object: &common_configs.CcPrimary{}, Params: Params{commonConfigID}},
@@ -30,7 +30,7 @@ func init() {
 
 	list = append(list, &APISet{
 		Name:        "cc_sec_notified_servers",
-		Description: "Secondary DNS function notify setting. ",
+		Description: "Secondary DNS setting for send notify. ",
 		Action: map[api.Action]API{
 			api.ActionList:   {Object: &common_configs.CcSecNotifiedServerList{}, Params: Params{commonConfigID}},
 			api.ActionCreate: {Object: &common_configs.CcSecNotifiedServer{}, Params: Params{commonConfigID}},
@@ -45,7 +45,7 @@ func init() {
 	// common_configs  cc_sec_transfer_acls            CcSecTransferAclList            List
 	list = append(list, &APISet{
 		Name:        "cc_sec_transfer_acls",
-		Description: "Secondary DNS function allow zone transer setting. ",
+		Description: "Secondary DNS setting for allow zone transfer. ",
 		Action: map[api.Action]API{
 			api.ActionList:   {Object: &common_configs.CcSecTransferAclList{}, Params: Params{commonConfigID}},
 			api.ActionCreate: {Object: &common_configs.CcSecTransferAcl{}, Params: Params{commonConfigID}},
