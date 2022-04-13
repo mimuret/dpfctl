@@ -497,6 +497,180 @@ _dpfctl_completion()
     noun_aliases=()
 }
 
+_dpfctl_config_get-context()
+{
+    last_command="dpfctl_config_get-context"
+
+    command_aliases=()
+
+    commands=()
+
+    flags=()
+    two_word_flags=()
+    local_nonpersistent_flags=()
+    flags_with_completion=()
+    flags_completion=()
+
+    flags+=("--config=")
+    two_word_flags+=("--config")
+    flags+=("--context=")
+    two_word_flags+=("--context")
+    flags+=("--debug=")
+    two_word_flags+=("--debug")
+    flags+=("--no-headers")
+    flags+=("--output=")
+    two_word_flags+=("--output")
+    flags_with_completion+=("--output")
+    flags_completion+=("__dpfctl_handle_go_custom_completion")
+    two_word_flags+=("-o")
+    flags_with_completion+=("-o")
+    flags_completion+=("__dpfctl_handle_go_custom_completion")
+
+    must_have_one_flag=()
+    must_have_one_noun=()
+    noun_aliases=()
+}
+
+_dpfctl_config_get-current-context()
+{
+    last_command="dpfctl_config_get-current-context"
+
+    command_aliases=()
+
+    commands=()
+
+    flags=()
+    two_word_flags=()
+    local_nonpersistent_flags=()
+    flags_with_completion=()
+    flags_completion=()
+
+    flags+=("--config=")
+    two_word_flags+=("--config")
+    flags+=("--context=")
+    two_word_flags+=("--context")
+    flags+=("--debug=")
+    two_word_flags+=("--debug")
+    flags+=("--no-headers")
+    flags+=("--output=")
+    two_word_flags+=("--output")
+    flags_with_completion+=("--output")
+    flags_completion+=("__dpfctl_handle_go_custom_completion")
+    two_word_flags+=("-o")
+    flags_with_completion+=("-o")
+    flags_completion+=("__dpfctl_handle_go_custom_completion")
+
+    must_have_one_flag=()
+    must_have_one_noun=()
+    noun_aliases=()
+}
+
+_dpfctl_config_set-context()
+{
+    last_command="dpfctl_config_set-context"
+
+    command_aliases=()
+
+    commands=()
+
+    flags=()
+    two_word_flags=()
+    local_nonpersistent_flags=()
+    flags_with_completion=()
+    flags_completion=()
+
+    flags+=("--config=")
+    two_word_flags+=("--config")
+    flags+=("--context=")
+    two_word_flags+=("--context")
+    flags+=("--debug=")
+    two_word_flags+=("--debug")
+    flags+=("--no-headers")
+    flags+=("--output=")
+    two_word_flags+=("--output")
+    flags_with_completion+=("--output")
+    flags_completion+=("__dpfctl_handle_go_custom_completion")
+    two_word_flags+=("-o")
+    flags_with_completion+=("-o")
+    flags_completion+=("__dpfctl_handle_go_custom_completion")
+
+    must_have_one_flag=()
+    must_have_one_noun=()
+    noun_aliases=()
+}
+
+_dpfctl_config_set-current-context()
+{
+    last_command="dpfctl_config_set-current-context"
+
+    command_aliases=()
+
+    commands=()
+
+    flags=()
+    two_word_flags=()
+    local_nonpersistent_flags=()
+    flags_with_completion=()
+    flags_completion=()
+
+    flags+=("--config=")
+    two_word_flags+=("--config")
+    flags+=("--context=")
+    two_word_flags+=("--context")
+    flags+=("--debug=")
+    two_word_flags+=("--debug")
+    flags+=("--no-headers")
+    flags+=("--output=")
+    two_word_flags+=("--output")
+    flags_with_completion+=("--output")
+    flags_completion+=("__dpfctl_handle_go_custom_completion")
+    two_word_flags+=("-o")
+    flags_with_completion+=("-o")
+    flags_completion+=("__dpfctl_handle_go_custom_completion")
+
+    must_have_one_flag=()
+    must_have_one_noun=()
+    noun_aliases=()
+}
+
+_dpfctl_config()
+{
+    last_command="dpfctl_config"
+
+    command_aliases=()
+
+    commands=()
+    commands+=("get-context")
+    commands+=("get-current-context")
+    commands+=("set-context")
+    commands+=("set-current-context")
+
+    flags=()
+    two_word_flags=()
+    local_nonpersistent_flags=()
+    flags_with_completion=()
+    flags_completion=()
+
+    flags+=("--config=")
+    two_word_flags+=("--config")
+    flags+=("--context=")
+    two_word_flags+=("--context")
+    flags+=("--debug=")
+    two_word_flags+=("--debug")
+    flags+=("--no-headers")
+    flags+=("--output=")
+    two_word_flags+=("--output")
+    flags_with_completion+=("--output")
+    flags_completion+=("__dpfctl_handle_go_custom_completion")
+    two_word_flags+=("-o")
+    flags_with_completion+=("-o")
+    flags_completion+=("__dpfctl_handle_go_custom_completion")
+
+    must_have_one_flag=()
+    must_have_one_noun=()
+    noun_aliases=()
+}
+
 _dpfctl_create()
 {
     last_command="dpfctl_create"
@@ -690,9 +864,9 @@ _dpfctl_update()
     flags+=("--filename=")
     two_word_flags+=("--filename")
     flags_with_completion+=("--filename")
-    flags_completion+=("__dpfctl_handle_filename_extension_flag yaml|yml|json")
-    flags_with_completion+=("--filename")
     flags_completion+=("__dpfctl_handle_go_custom_completion")
+    flags_with_completion+=("--filename")
+    flags_completion+=("__dpfctl_handle_filename_extension_flag yaml|yml|json")
     two_word_flags+=("-f")
     flags_with_completion+=("-f")
     flags_completion+=("__dpfctl_handle_filename_extension_flag yaml|yml|json")
@@ -784,6 +958,7 @@ _dpfctl_root_command()
     commands+=("apply")
     commands+=("cancel")
     commands+=("completion")
+    commands+=("config")
     commands+=("create")
     commands+=("delete")
     commands+=("get")

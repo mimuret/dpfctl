@@ -34,7 +34,7 @@ import (
 )
 
 func newCancelCmd() *cobra.Command {
-	cmd := utils.NewCommand("cancel [resource_name id ...|-f filename]", api.ActionUpdate, func(cmd *cobra.Command, cl api.ClientInterface, args []string, resources []apis.Spec) error {
+	cmd := utils.NewCommand("cancel [resource_name id ...|-f filename]", api.ActionCancel, func(cmd *cobra.Command, cl api.ClientInterface, args []string, resources []apis.Spec) error {
 		return commonChangeRunFunc(func(s apis.Spec) (string, error) {
 			return cl.Delete(context.Background(), s)
 		}, cmd, cl, args, resources)

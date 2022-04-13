@@ -89,6 +89,8 @@ func init() {
 	rootCmd.PersistentFlags().BoolP("no-headers", "", false, "no output headers")
 	viper.BindPFlag("no-headers", rootCmd.PersistentFlags().Lookup("no-headers"))
 
+	rootCmd.AddCommand(newCmdConfig())
+
 	rootCmd.AddCommand(newGetCmd())
 
 	rootCmd.AddCommand(newCreateCmd())
@@ -101,6 +103,7 @@ func init() {
 
 // initConfig reads in config file and ENV variables if set.
 func initConfig() {
+	viper.SetConfigType("yaml")
 	if viper.GetString("config") != "" {
 		// Use config file from the flag.
 		viper.SetConfigFile(viper.GetString("config"))
@@ -116,7 +119,10 @@ func initConfig() {
 	viper.SetEnvPrefix("dpf")
 	viper.AutomaticEnv() // read in environment variables that match
 	// If a config file is found, read it in.
-	if err := viper.ReadInConfig(); err == nil {
-		fmt.Fprintln(os.Stderr, "Using config file:", viper.ConfigFileUsed())
+	if err := viper.ReadInConfig(); err != nil {
+		if _, ok := err.(viper.ConfigFileNotFoundError); !ok {
+			fmt.Printf("faield to read config: %s", err.Error())
+			os.Exit(1)
+		}
 	}
 }

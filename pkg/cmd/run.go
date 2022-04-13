@@ -34,7 +34,7 @@ import (
 )
 
 func newRunCmd() *cobra.Command {
-	cmd := utils.NewCommand("update -f filename", api.ActionUpdate, func(cmd *cobra.Command, cl api.ClientInterface, args []string, resources []apis.Spec) error {
+	cmd := utils.NewCommand("update -f filename", api.ActionApply, func(cmd *cobra.Command, cl api.ClientInterface, args []string, resources []apis.Spec) error {
 		return commonChangeRunFunc(func(s apis.Spec) (string, error) {
 			return cl.Apply(context.Background(), s, nil)
 		}, cmd, cl, args, resources)
