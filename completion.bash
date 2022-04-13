@@ -427,9 +427,9 @@ _dpfctl_cancel()
     flags_completion+=("__dpfctl_handle_go_custom_completion")
     two_word_flags+=("-f")
     flags_with_completion+=("-f")
-    flags_completion+=("__dpfctl_handle_filename_extension_flag yaml|yml|json")
-    flags_with_completion+=("-f")
     flags_completion+=("__dpfctl_handle_go_custom_completion")
+    flags_with_completion+=("-f")
+    flags_completion+=("__dpfctl_handle_filename_extension_flag yaml|yml|json")
     flags+=("--request-timeout=")
     two_word_flags+=("--request-timeout")
     flags+=("--wait")
@@ -497,9 +497,9 @@ _dpfctl_completion()
     noun_aliases=()
 }
 
-_dpfctl_config_get-context()
+_dpfctl_config_current-context()
 {
-    last_command="dpfctl_config_get-context"
+    last_command="dpfctl_config_current-context"
 
     command_aliases=()
 
@@ -531,9 +531,9 @@ _dpfctl_config_get-context()
     noun_aliases=()
 }
 
-_dpfctl_config_get-current-context()
+_dpfctl_config_get-contexts()
 {
-    last_command="dpfctl_config_get-current-context"
+    last_command="dpfctl_config_get-contexts"
 
     command_aliases=()
 
@@ -599,9 +599,43 @@ _dpfctl_config_set-context()
     noun_aliases=()
 }
 
-_dpfctl_config_set-current-context()
+_dpfctl_config_unset-context()
 {
-    last_command="dpfctl_config_set-current-context"
+    last_command="dpfctl_config_unset-context"
+
+    command_aliases=()
+
+    commands=()
+
+    flags=()
+    two_word_flags=()
+    local_nonpersistent_flags=()
+    flags_with_completion=()
+    flags_completion=()
+
+    flags+=("--config=")
+    two_word_flags+=("--config")
+    flags+=("--context=")
+    two_word_flags+=("--context")
+    flags+=("--debug=")
+    two_word_flags+=("--debug")
+    flags+=("--no-headers")
+    flags+=("--output=")
+    two_word_flags+=("--output")
+    flags_with_completion+=("--output")
+    flags_completion+=("__dpfctl_handle_go_custom_completion")
+    two_word_flags+=("-o")
+    flags_with_completion+=("-o")
+    flags_completion+=("__dpfctl_handle_go_custom_completion")
+
+    must_have_one_flag=()
+    must_have_one_noun=()
+    noun_aliases=()
+}
+
+_dpfctl_config_use-context()
+{
+    last_command="dpfctl_config_use-context"
 
     command_aliases=()
 
@@ -640,10 +674,11 @@ _dpfctl_config()
     command_aliases=()
 
     commands=()
-    commands+=("get-context")
-    commands+=("get-current-context")
+    commands+=("current-context")
+    commands+=("get-contexts")
     commands+=("set-context")
-    commands+=("set-current-context")
+    commands+=("unset-context")
+    commands+=("use-context")
 
     flags=()
     two_word_flags=()
@@ -846,9 +881,9 @@ _dpfctl_help()
     noun_aliases=()
 }
 
-_dpfctl_update()
+_dpfctl_run()
 {
-    last_command="dpfctl_update"
+    last_command="dpfctl_run"
 
     command_aliases=()
 
@@ -864,9 +899,9 @@ _dpfctl_update()
     flags+=("--filename=")
     two_word_flags+=("--filename")
     flags_with_completion+=("--filename")
-    flags_completion+=("__dpfctl_handle_go_custom_completion")
-    flags_with_completion+=("--filename")
     flags_completion+=("__dpfctl_handle_filename_extension_flag yaml|yml|json")
+    flags_with_completion+=("--filename")
+    flags_completion+=("__dpfctl_handle_go_custom_completion")
     two_word_flags+=("-f")
     flags_with_completion+=("-f")
     flags_completion+=("__dpfctl_handle_filename_extension_flag yaml|yml|json")
@@ -963,7 +998,7 @@ _dpfctl_root_command()
     commands+=("delete")
     commands+=("get")
     commands+=("help")
-    commands+=("update")
+    commands+=("run")
     commands+=("update")
 
     flags=()

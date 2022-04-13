@@ -39,6 +39,7 @@ func newCancelCmd() *cobra.Command {
 			return cl.Delete(context.Background(), s)
 		}, cmd, cl, args, resources)
 	})
+	cmd.Short = "Cancel editing recourse"
 	cmd.Args = cobra.MinimumNArgs(0)
 	utils.ChangeCmd(cmd)
 	return cmd

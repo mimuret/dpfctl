@@ -39,6 +39,7 @@ func newUpdateCmd() *cobra.Command {
 			return cl.Update(context.Background(), s, nil)
 		}, cmd, cl, args, resources)
 	})
+	cmd.Short = "Update recourse"
 	cmd.Args = cobra.MinimumNArgs(0)
 	utils.ChangeCmd(cmd)
 	return cmd

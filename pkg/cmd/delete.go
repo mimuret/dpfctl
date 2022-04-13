@@ -42,6 +42,7 @@ func newDeleteCmd() *cobra.Command {
 	cmd.ValidArgsFunction = func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
 		return utils.ValidArgsFunction(api.ActionDelete, args)
 	}
+	cmd.Short = "Delete recourse"
 	cmd.Args = cobra.MinimumNArgs(0)
 	utils.ChangeCmd(cmd)
 	return cmd

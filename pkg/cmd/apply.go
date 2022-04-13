@@ -39,9 +39,10 @@ import (
 
 func newCmdApply() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:  "apply -f filename",
-		Args: cobra.NoArgs,
-		RunE: runApply,
+		Use:   "apply -f filename",
+		Short: "Apply a configuration by file",
+		Args:  cobra.NoArgs,
+		RunE:  runApply,
 	}
 	utils.ChangeCmd(cmd)
 	return cmd

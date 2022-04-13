@@ -39,6 +39,7 @@ func newCreateCmd() *cobra.Command {
 			return cl.Create(context.Background(), s, nil)
 		}, cmd, cl, args, resources)
 	})
+	cmd.Short = "Create recourse by file"
 	cmd.Args = cobra.MinimumNArgs(0)
 	utils.ChangeCmd(cmd)
 	return cmd

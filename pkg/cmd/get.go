@@ -53,6 +53,7 @@ func newGetCmd() *cobra.Command {
 	cmd.ValidArgsFunction = func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
 		return utils.ValidArgsFunction(api.ActionList, args)
 	}
+	cmd.Short = "Get recourse"
 	cmd.PersistentFlags().StringVarP(&GetOption.RowSearchParams, "row-search-params", "", "", "search params")
 	return cmd
 }

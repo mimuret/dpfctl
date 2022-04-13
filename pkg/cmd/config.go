@@ -11,18 +11,21 @@ import (
 
 func newCmdConfig() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "config",
+		Use:   "config",
+		Short: "Modify dpfctl config",
 	}
 	cmd.AddCommand(newCmdConfigGetCurrentContext())
-	cmd.AddCommand(newCmdConfigSetCurrentContext())
+	cmd.AddCommand(newCmdConfigUseCurrentContext())
 	cmd.AddCommand(newCmdConfigGetContext())
 	cmd.AddCommand(newCmdConfigSetContext())
+	cmd.AddCommand(newCmdConfigUnsetContext())
 	return cmd
 }
 
 func newCmdConfigGetCurrentContext() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "get-current-context",
+		Use:   "current-context",
+		Short: "Display current contexts in the dpfctl config",
 		Run: func(cmd *cobra.Command, args []string) {
 			fmt.Println(viper.GetString("current-context"))
 		},
@@ -30,9 +33,10 @@ func newCmdConfigGetCurrentContext() *cobra.Command {
 	return cmd
 }
 
-func newCmdConfigSetCurrentContext() *cobra.Command {
+func newCmdConfigUseCurrentContext() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "set-current-context",
+		Use:   "use-context",
+		Short: "Sets the current-context in the dpfctl config",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cfg, err := utils.GetConfig()
 			if err != nil {
@@ -53,16 +57,21 @@ func newCmdConfigSetCurrentContext() *cobra.Command {
 
 func newCmdConfigGetContext() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "get-context",
+		Use:   "get-contexts",
+		Short: "Display contexts in the dpfctl config",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cfg, err := utils.GetConfig()
 			if err != nil {
 				return err
 			}
 			table := uitable.New()
-			table.AddRow("name", "endpoint")
+			table.AddRow("CURRENT", "NAME", "ENDPOINT")
 			for name, c := range cfg.Contexts {
-				table.AddRow(name, c.Endpoint)
+				use := ""
+				if name == cfg.CurrentContext {
+					use = "*"
+				}
+				table.AddRow(use, name, c.Endpoint)
 			}
 			fmt.Println(table.String())
 			return nil
@@ -73,7 +82,8 @@ func newCmdConfigGetContext() *cobra.Command {
 
 func newCmdConfigSetContext() *cobra.Command {
 	cmd := &cobra.Command{
-		Use: "set-context name endpoint [token]",
+		Use:   "set-context name endpoint [token]",
+		Short: "Set context in the dpfctl config",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cfg, err := utils.GetConfig()
 			if err != nil {
@@ -90,6 +100,26 @@ func newCmdConfigSetContext() *cobra.Command {
 			return cfg.WriteConfig()
 		},
 		Args: cobra.RangeArgs(2, 3),
+	}
+	return cmd
+}
+
+func newCmdConfigUnsetContext() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "unset-context name",
+		Short: "Unsets context in the dpfctl config",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			cfg, err := utils.GetConfig()
+			if err != nil {
+				return err
+			}
+			if cfg.CurrentContext == args[0] {
+				return fmt.Errorf("%s is current context", args[0])
+			}
+			delete(cfg.Contexts, args[0])
+			return cfg.WriteConfig()
+		},
+		Args: cobra.ExactArgs(1),
 	}
 	return cmd
 }
