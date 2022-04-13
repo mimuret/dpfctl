@@ -79,18 +79,28 @@ func getCmdUsage(subcmd string, action api.Action) *uitable.Table {
 				t.AddRow(fmt.Sprintf("\n%s API:", groupName))
 				exist = true
 			}
+			desc := apiSet.Description
 			if readAPI != nil && listAPI == nil {
-				t.AddRow(fmt.Sprintf("  %s %s %s", subcmd, apiSet.Name, readAPI.Params.String()), apiSet.Description)
+				if readAPI.Desc != "" {
+					desc = readAPI.Desc
+				}
+				t.AddRow(fmt.Sprintf("  %s %s %s", subcmd, apiSet.Name, readAPI.Params.String()), desc)
 			} else if readAPI == nil && listAPI != nil {
-				t.AddRow(fmt.Sprintf("  %s %s %s", subcmd, apiSet.Name, listAPI.Params.String()), apiSet.Description)
+				if listAPI.Desc != "" {
+					desc = listAPI.Desc
+				}
+				t.AddRow(fmt.Sprintf("  %s %s %s", subcmd, apiSet.Name, listAPI.Params.String()), desc)
 			} else if readAPI != nil && listAPI != nil {
+				if listAPI.Desc != "" {
+					desc = listAPI.Desc
+				}
 				getParams := listAPI.Params
 				for i := len(listAPI.Params); i < len(readAPI.Params); i++ {
 					param := readAPI.Params[i]
 					param.Required = false
 					getParams = append(getParams, param)
 				}
-				t.AddRow(fmt.Sprintf("  %s %s %s", subcmd, apiSet.Name, getParams.String()), apiSet.Description)
+				t.AddRow(fmt.Sprintf("  %s %s %s", subcmd, apiSet.Name, getParams.String()), desc)
 			}
 		})
 	})
@@ -107,7 +117,12 @@ func cmdUsage(subcmd string, action api.Action) *uitable.Table {
 					t.AddRow(fmt.Sprintf("\n%s API:", groupName))
 					exist = true
 				}
-				t.AddRow(fmt.Sprintf("  %s %s %s", subcmd, apiSet.Name, apiSepc.Params.String()), apiSet.Description)
+				desc := apiSet.Description
+				if apiSepc.Desc != "" {
+					desc = apiSepc.Desc
+				}
+
+				t.AddRow(fmt.Sprintf("  %s %s %s", subcmd, apiSet.Name, apiSepc.Params.String()), desc)
 			}
 		})
 	})

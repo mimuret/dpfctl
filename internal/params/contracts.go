@@ -28,16 +28,16 @@ func init() {
 		Name:        "common_configs_default",
 		Description: "Common config setting an initial value for IIJ Managed DNS Service.",
 		Action: map[api.Action]API{
-			api.ActionApply: {Object: &contracts.CommonConfigDefault{}, Params: Params{contractID, commonConfigID}},
+			api.ActionApply: {Object: &contracts.CommonConfigDefault{}, Params: Params{contractID, commonConfigID}, Desc: "Change default common config."},
 		},
 	})
 
 	// contracts       common_configs_managed_dns      CommonConfigManagedDns          Apply
 	list = append(list, &APISet{
 		Name:        "common_configs_managed_dns",
-		Description: "Managed DNS Server setting (advanced configuration.",
+		Description: "Managed DNS Server setting (advanced configuration).",
 		Action: map[api.Action]API{
-			api.ActionApply: {Object: &contracts.CommonConfigManagedDns{}, Params: Params{contractID, commonConfigID}},
+			api.ActionApply: {Object: &contracts.CommonConfigManagedDns{}, Params: Params{contractID, commonConfigID}, Desc: "Change managed dns configuration."},
 		},
 	})
 
@@ -83,7 +83,7 @@ func init() {
 		Name:        "contract_zone_common_configs",
 		Description: "Settings common config to IIJ Managed DNS.",
 		Action: map[api.Action]API{
-			api.ActionApply: {Object: &contracts.ContractZoneCommonConfig{}, Params: Params{contractID, commonConfigID, zoneIDs}},
+			api.ActionApply: {Object: &contracts.ContractZoneCommonConfig{}, Params: Params{contractID, commonConfigID, zoneIDs}, Desc: "Change zone of common config."},
 		},
 	})
 

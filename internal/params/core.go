@@ -74,8 +74,8 @@ func init() {
 			api.ActionList:   {Object: &core.ZoneList{}},
 			api.ActionRead:   {Object: &core.Zone{}, Params: Params{zoneID}},
 			api.ActionUpdate: {Object: &core.Zone{}, Params: Params{zoneID}},
-			api.ActionCancel: {Object: &zones.ZoneApply{}, Params: Params{zoneID}},
-			api.ActionApply:  {Object: &zones.ZoneApply{}, Params: Params{zoneID}},
+			api.ActionCancel: {Object: &zones.ZoneApply{}, Params: Params{zoneID}, Desc: "Reset edited records."},
+			api.ActionApply:  {Object: &zones.ZoneApply{}, Params: Params{zoneID}, Desc: "Apply edited records."},
 		},
 	})
 	SetGroup("core", list)

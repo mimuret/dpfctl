@@ -43,7 +43,7 @@ func init() {
 		Name:        "ksk_roll_over",
 		Description: "KSK rollover",
 		Action: map[api.Action]API{
-			api.ActionApply: {Object: &zones.DnssecKskRollover{}, Params: Params{zoneID}},
+			api.ActionApply: {Object: &zones.DnssecKskRollover{}, Params: Params{zoneID}, Desc: "Start ksk rollover process."},
 		},
 	})
 

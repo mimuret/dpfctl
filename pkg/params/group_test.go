@@ -33,12 +33,12 @@ var _ = Describe("GroupMap", func() {
 					params.Params{
 						{Name: "id", Type: params.ParamTypeInt64, Required: true},
 					},
-					nil,
+					nil, "",
 				},
 				api.ActionList: {
 					nil,
 					params.Params{},
-					nil,
+					nil, "",
 				},
 			},
 		}
@@ -51,7 +51,7 @@ var _ = Describe("GroupMap", func() {
 					params.Params{
 						{Name: "id", Type: params.ParamTypeArrayString, Required: true},
 					},
-					nil,
+					nil, "",
 				},
 			},
 		}
@@ -65,7 +65,7 @@ var _ = Describe("GroupMap", func() {
 						params.Param{Name: "IDS", Type: params.ParamTypeArrayInt64, Required: true},
 						params.Param{Name: "Value", Type: params.ParamTypeString, Required: false},
 					},
-					nil,
+					nil, "",
 				},
 			},
 		}

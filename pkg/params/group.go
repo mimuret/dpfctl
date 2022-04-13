@@ -139,6 +139,7 @@ type API struct {
 	Params Params
 	// set args for apply
 	SetFunc func(apis.Spec, []string) error
+	Desc    string
 }
 
 type Params []Param
