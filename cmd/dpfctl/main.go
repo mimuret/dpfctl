@@ -24,7 +24,7 @@ SOFTWARE.
 package main
 
 import (
-	"github.com/mimuret/dpfctl/internal/cmd"
+	"github.com/mimuret/dpfctl/pkg/cmd"
 )
 
 func main() {
